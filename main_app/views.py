@@ -19,20 +19,24 @@ def signup (request):
 def loginn (request):
   return render(request, 'loginn.html')
 
-def profile (request, user_id):
+def profile (request, user_id, city_id):
   user = User.objects.get(id=user_id).__dict__
+  city = City.objects.get(id=city_id).__dict__
+  # city.id = user.city_id
+  # user.city_id = city.id
+
+  print('this is my user ...')
   print(user)
+  print('this is my city ...')
+  print(city)
   form = UserForm(user)
   print(form)
   context = {
     'user': user,
     'form': form,
+    'city': city,
   }
   return render(request, 'profile.html', context)
-
-# def update (request):
-
-#   return render(request, 'profile.html')
 
 def index (request):
       return render(request, 'index.html')
