@@ -8,7 +8,7 @@
 
 <div class="card">
   <div class="card-content">
-    <form method="POST" action="{% url 'profile' user.id city.id %}">
+    <form method="POST" action="{% url 'profile' user.id %}">
 
       {% csrf_token %}
       {{ user.first_name }}

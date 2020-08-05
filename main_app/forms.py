@@ -1,8 +1,8 @@
 from django import forms
-from .models import City, Post, User
+from .models import City, Post, Profile
 
-class UserForm (forms.ModelForm):
+class ProfileForm (forms.ModelForm):
   class Meta:
-    model = User
+    model = Profile
     # fields = '__all__' #we still need date
-    fields = ['first_name', 'city',]
+    fields = ['city',]

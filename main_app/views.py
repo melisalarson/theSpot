@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import City, Post, User
-from .forms import UserForm
+from .models import City, Post, Profile
+from .forms import ProfileForm
 
 # Create your views here.
 
@@ -24,17 +24,15 @@ def signup (request):
 def loginn (request):
   return render(request, 'loginn.html')
 
-def profile (request, user_id, city_id):
-  user = User.objects.get(id=user_id).__dict__
-  city = City.objects.get(id=city_id).__dict__
-  # city.id = user.city_id
-  # user.city_id = city.id
+def profile (request, user_id):
+  user = Profile.objects.get(id=user_id).__dict__
+  city = City.objects.get(user.city_id).__dict__
 
   print('this is my user ...')
   print(user)
   print('this is my city ...')
   print(city)
-  form = UserForm(user)
+  form = ProfileForm(user)
   print(form)
   context = {
     'user': user,
