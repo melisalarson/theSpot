@@ -21,16 +21,14 @@ class Profile(models.Model):
 def __str__(self):
     return self.first_name
 
+
 class Post(models.Model):
-  title = models.CharField(max_length=100)
-  description = models.TextField(max_length=500)
-  picture = models.FileField(upload_to='uploads/')
-  date = models.DateField(auto_now=True)
-  city = models.ForeignKey(City, on_delete=models.CASCADE)
-  profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=500)
+    picture = models.FileField(upload_to='uploads/')
+    date = models.DateField(auto_now=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     
-  def __str__(self):
-    return self.title
-
-
-
+    def __str__(self):
+      return self.title
