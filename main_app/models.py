@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import date, timezone
 
 # Create your models here.
 class City(models.Model):
@@ -16,7 +16,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     picture = models.FileField(upload_to='uploads/')
-    date = models.DateField()
+    date = models.DateField(auto_now=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
@@ -30,7 +30,11 @@ class User(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+    user_picture = models.FileField(upload_to='uploads/')
+    user_date = models.DateTimeField(auto_now_add=True)
+
     # post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
-    def __str__(self):
-      return self.first_name
+    # def __str__(self):
+    #     return self.first_name
+

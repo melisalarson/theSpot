@@ -12,11 +12,16 @@
 
       {% csrf_token %}
       {{ form.as_p }}
+      {{ user.user_date}}
 
+      <button type="submit" name="update">Update</button>
     </form>
 
   </div>
 </div>
-
+<script>
+  const citySelectEl = document.getElementById("id_city");
+    M.FormSelect.init(citySelectEl);
+</script>
 
 {% endblock %}
