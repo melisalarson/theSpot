@@ -15,6 +15,7 @@ def signup_login (request):
   # option B sign up and login separate
 def signup (request):
   return render(request, 'signup.html')
+
 def loginn (request):
   return render(request, 'loginn.html')
 
@@ -28,3 +29,10 @@ def profile (request, user_id):
     'form': form,
   }
   return render(request, 'profile.html', context)
+
+# def update (request):
+
+#   return render(request, 'profile.html')
+
+def index (request):
+      return render(request, 'index.html')
