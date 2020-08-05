@@ -8,6 +8,10 @@ class City(models.Model):
     country = models.CharField(max_length=150)
     picture = models.FileField(upload_to='uploads/')
 
+    def __str__(self):
+      return self.name
+    
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
@@ -15,6 +19,9 @@ class Post(models.Model):
     date = models.DateField()
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+      return self.title
 
 class User(models.Model):
     username = models.CharField(max_length=50)
@@ -24,3 +31,6 @@ class User(models.Model):
     last_name = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     # post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+      return self.first_name

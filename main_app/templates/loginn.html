@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>theSpot loginn page</h1>
+<hr />
+<p>log inn</p>
+<p>username</p>
+<p>password</p>
+
+<a href="{% url 'profile' user.id %}"><button>login</button></a>
+
+{% endblock %}
