@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>theSpot</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
         </ul>
         <ul class="right">
-          <li><a href="#">Cities</a></li>
+          <li><a href="{% url 'index' %}">Cities</a></li>
           <li><a href="{% url 'signup_login' %}">SignUp/Login</a></li>
           <li><a href="{% url 'signup' %}">SignUp</a></li>
           <li><a href="{% url 'loginn' %}">Loginn</a></li>
@@ -29,6 +30,7 @@
   </header>
   <main class="container">
     {% block content %}
+    
     {% endblock %}
   </main>
   <footer class="page-footer">
