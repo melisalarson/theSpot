@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Profile Page</h1>
+<hr />
+<p>this is the profile page</p>
+
+
+<div class="card">
+  <div class="card-content">
+    <form method="POST" action="{% url 'profile' user.id %}">
+
+      {% csrf_token %}
+      {{ form.as_p }}
+
+    </form>
+
+  </div>
+</div>
+
+
+{% endblock %}

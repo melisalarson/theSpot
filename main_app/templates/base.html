@@ -18,8 +18,11 @@
         </ul>
         <ul class="right">
           <li><a href="#">Cities</a></li>
-          <li><a href="#">SignUp/Login</a></li>
-          <li><a href="#">Logout</a></li>
+          <li><a href="{% url 'signup_login' %}">SignUp/Login</a></li>
+          <li><a href="{% url 'signup' %}">SignUp</a></li>
+          <li><a href="{% url 'loginn' %}">Loginn</a></li>
+
+          <li><a href="{% url 'home' %}">Logout</a></li>
         </ul>
       </div>
     </nav>
