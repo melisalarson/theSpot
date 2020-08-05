@@ -19,11 +19,9 @@ def signup (request):
 def loginn (request):
   return render(request, 'loginn.html')
 
-def profile (request, user_id, city_id):
+def profile (request, user_id):
   user = User.objects.get(id=user_id).__dict__
-  city = City.objects.get(id=city_id).__dict__
-  # city.id = user.city_id
-  # user.city_id = city.id
+  city = City.objects.get(user.city_id).__dict__
 
   print('this is my user ...')
   print(user)
