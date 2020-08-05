@@ -12,6 +12,16 @@ class City(models.Model):
       return self.name
     
 
+class Profile(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_picture = models.FileField(upload_to='uploads/')
+    # profile_date = models.DateTimeField(auto_now_add=True)
+
+    # def __str__(self):
+    #     return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
@@ -22,13 +32,3 @@ class Post(models.Model):
     
     def __str__(self):
       return self.title
-
-class Profile(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_picture = models.FileField(upload_to='uploads/')
-    # profile_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.first_name
-
