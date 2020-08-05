@@ -11,13 +11,12 @@
     <form method="POST" action="{% url 'profile' user.id city.id %}">
 
       {% csrf_token %}
+      {{ form.as_p }}
       {{ user.first_name }}
       {{ city.name }}
-      {{ user.user_date.timezone.now }}
+      {{ user.user_date }}
       <br>
-      <a href="{% url 'update_profile' user.id city.id %}">
-        <button>Update Profile</button>
-      </a>
+      <button type="submit" name="update">Update Profile</button>
     </form>
 
   </div>
