@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load tz %}
+{% block content %}
+
+<h1>Profile Page</h1>
+<hr />
+<p>this is the profile page</p>
+
+
+<div class="card">
+  <div class="card-content">
+    <form method="POST" action="{% url 'profile' %}">
+      {% csrf_token %}
+      
+      <input type="text" placeholder="{{ profile.user.first_name }}">
+      <input type="text" placeholder="{{ profile.user.last_name }}">
+      <p>City: {{form.city}}</p>
+      <p>Profile Photo: {{form.profile_picture}}</p>
+      <br>
+      <p>Posts: </p>
+      <br>
+      <button type="submit" name="update">Update</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- using materialize to edit drop downs -->
+<script>
+  $(document).ready(function () {
+      $('select').not('.disabled').formSelect();
+    });
+</script>
+
+{% endblock %}

@@ -12,3 +12,4 @@ class UserForm (forms.ModelForm):
     model = Profile
     fields = '__all__'
     # fields = []
+
