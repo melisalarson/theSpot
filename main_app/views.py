@@ -14,6 +14,11 @@ def signup_login (request):
 
   # option B sign up and login separate
 def signup (request):
+  # User - get it using userForm
+  # user.save as post => creates user
+  # with this user object get user id and create a profile
+
+
   return render(request, 'signup.html')
 
 def login (request):
