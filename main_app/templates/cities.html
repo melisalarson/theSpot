@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>all cities page</h1>
+<hr />
+
+
+
+{% for city in cities %}
+<div class="card">
+  <div class="card-content">
+
+    <a href="{{ city.id }}">
+      <span class="card-title">{{ city.name }}</span>
+    </a>
+
+    <p>{{ city.country }}</p>
+    <p>{{ city.picutre }}</p>
+    
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

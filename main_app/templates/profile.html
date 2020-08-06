@@ -11,20 +11,33 @@
     <form method="POST" action="{% url 'profile' user.id city.id %}">
 
       {% csrf_token %}
-      {{ user.first_name }}
+      {{ profile }} 
       <br><br>
-      {{ city.name }}
+      {{ profile.id }} prof id
       <br><br>
-      {{ user.user_date }}
-      <br>      
+      {{ profile.city_id }} city
+      <br><br>
+      {{ profile.user_id }} user id
+      <br><br>
+      {{ profile.profile_picture}} pic
+      <br><br>   
+      {{ user }}
+      <br><br>
+      {{ profile_form.as_p }}
+
+      <br><br>
       <button type="submit" name="update">Update</button>
     </form>
 
   </div>
 </div>
+
+<!-- using materialize to edit drop downs -->
 <script>
   const citySelectEl = document.getElementById("id_city");
-    M.FormSelect.init(citySelectEl);
+  M.FormSelect.init(citySelectEl);
+  const userSelectEl = document.getElementById("id_user");
+  M.FormSelect.init(userSelectEl);
 </script>
 
 {% endblock %}

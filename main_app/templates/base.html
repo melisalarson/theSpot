@@ -1,3 +1,5 @@
+{% comment %}
+{% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,70 +9,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>theSpot</title>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <!-- materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <!-- <link rel="stylesheet" href="/uploads"> -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+  <!-- media folder user photo uploads -->
+  <link rel="stylesheet" href="/uploads">
+  <!-- main css -->
+  <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+
+
 </head>
 
 <body>
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
+
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
         </ul>
+
         <ul class="right">
-          <li><a href="{% url 'index' %}">Cities</a></li>
-
-          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal">Sign Up</a></li>
-
-          <!-- Modal Trigger -->
-          <li><a class="modal-trigger" href="#login">Login</a></li>
-          <!-- Modal Structure -->
-          <div id="login" class="modal">
-            <div class="modal-content">
-              <h1 style="color: black;">Login</h1>
-              <form action="{% url 'login' %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div class="input-field">
-                  <input type="text" id="name">
-                  <label for="name">Username</label>
-                </div>
-                <br>
-          
-                <div class="input-field">
-                  <input type="password" id="pass">
-                  <label for="pass">Password</label>
-                </div>
-                <br>
-                
-                <!-- <input type="submit" value="Login" class="btn btn-large"> -->
-                <button type="submit">Login</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <a href="#" class="modal-close waves-effect waves-green btn-flat">Login</a>
-            </div>
-          </div>
-
-          <li><a href="#">Logout</a></li>
+          <li><a href="{% url 'cities' %}">Cities</a></li>
+          <li><a href="{% url 'posts' %}">Posts</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' user.id %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+            <li><a class="waves-effect waves-light btn modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</a></li>
+            <li><a class="waves-effect waves-light btn modal-trigger" href="#modal-login" class="modal modal-open">Login</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
   </header>
 
+  <!-- ******************** Modal Structure Below ********************-->
+  
+    <!-- SIGNUP Modal -->
+    <div id="modal-signup" class="modal-open modal">
+      <div class="modal-content">
+
+        <h1>Sign Up</h1>
+
+        {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+
+        <form method="post" action="{% url 'signup' %}">
+          {% csrf_token %}
+          {{ signup_form.as_p }}
+          <input type="submit" class="btn" value="signup">
+        </form>
+
+      </div>
+      <!-- <div class="modal-footer">
+        <a href="{% url 'signup' %}" class="modal-close waves-effect waves-green btn-flat">Sign Up</a> -->
+      </div>
+    </div>
+
+    <!-- LOGIN Modal -->
+    <div id="modal-login" class="modal-open modal">
+      <div class="modal-content">
+
+      <h1>Log In</h1>
+
+      <!-- Add the login form -->
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
+      </form>
+
+      </div>
+      <!-- <div class="modal-footer">
+        <a href="{% url 'login' %}" class="modal-close waves-effect waves-green btn-flat">Log In</a>
+      </div> -->
+    </div>
+
+    {% comment %}
+    <!-- CITIES Modal -->
+    <!-- <div id="modal-cities" class="modal-open modal">
+      <div class="modal-content">
+
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'profile'}" class="modal-close waves-effect waves-green btn-flat">Cities</a>
+      </div>
+    </div> -->
+
+    <!-- PROFILE Modal -->
+    <!-- <div id="modal-profile" class="modal-open modal">
+      <div class="modal-content">
+
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'profile' %}" class="modal-close waves-effect waves-green btn-flat">Profile</a>
+      </div>
+    </div> -->
+    
+    <!-- LOGOUT Modal -->
+    <!-- <div id="modal-logout" class="modal-open modal">
+      <div class="modal-content">
+        
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Log Out</a>
+      </div>
+    </div> -->
+    {% endcomment %}
+
+
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
 
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2020 theSpot &nbsp;</div>
   </footer>
+
+  <!-- jquery/metrialize cript for modals -->
   <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
       $('.modal').modal();
     });
   </script>
-</body>
 
+</body>
 </html>
