@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Post: {{ post.title }}</h1>
+<hr />
+
+
+
+
+<div class="card">
+  <div class="card-content">
+
+    <h5>{{ post.title }}</h5>
+    <p>{{ post.city }} | {{ post.date }}</p>
+    <p>{{ post.description }}</p>
+    <p>{{ post.picutre }}</p>
+    <p>{{ post.profile }}</p>
+
+  </div>
+</div>
+
+
+
+{% endblock %}

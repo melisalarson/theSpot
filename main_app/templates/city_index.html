@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>City: {{ city.name }}</h1>
+<hr />
+
+
+
+
+<div class="card">
+  <div class="card-content">
+
+    <p>{{ city.name }}</p>
+    <p>{{ city.country }}</p>
+    <p><img src="{{ city.picture.url }}" alt=""></p>
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% comment %}
+https://studygyaan.com/django/how-to-upload-and-display-image-in-django#:~:text=Upload%20in%20Image%20in%20Django%20Model%20using%20ImageField&text=Bellow%20is%20the%20Employee%20Django%20Model.&text=Note%20%E2%80%93%20All%20the%20uploaded%20images,store%20in%20media%2Fupload%20folder.&text=Whenever%2C%20we%20upload%20images%20or,data%22%20and%20%7B%25%20csrf_token%20%25%7D%20.
+{% endcomment %}
