@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.urls import include
+# from django.contrib import admin
 
 urlpatterns = [
   # path('admin/', admin.site.urls),
@@ -13,7 +14,7 @@ urlpatterns = [
   path('posts/<int:post_id>/', views.post_index, name='post_index'),
 
   path('accounts/signup', views.signup, name='signup'),
-  path('profile/<int:user_id>/', views.profile, name='profile'),
+  path('profile/', views.profile, name='profile'),
   path('accounts/', include('django.contrib.auth.urls')),
         # this line7 adds the following links for us to use 
             # accounts/login/ [name='login']
