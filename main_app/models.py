@@ -13,7 +13,7 @@ class City(models.Model):
     
 class Profile(models.Model):
   city = models.ForeignKey(City, on_delete=models.CASCADE)
-  user = models.ForeignKey(user, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   profile_picture = models.FileField(upload_to='uploads/')
 
 # post = models.ForeignKey(Post, on_delete=models.CASCADE)

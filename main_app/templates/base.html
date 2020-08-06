@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>theSpot</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="/uploads">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -19,34 +22,53 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'index' %}">Cities</a></li>
-          <li><a href="{% url 'signup_login' %}">SignUp/Login</a></li>
-          <li><a href="{% url 'signup' %}">SignUp</a></li>
-          <li><a href="{% url 'loginn' %}">Loginn</a></li>
 
-          <li><a href="{% url 'home' %}">Logout</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal">Sign Up</a></li>
+          <div id="modal" class="modal">
+            <div class="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+              <a href="{% url 'signup' %}" class="modal-close waves-effect waves-green btn-flat">Sign Up</a>
+            </div>
+          </div>
+
+          <!-- Modal Trigger -->
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Login</a></li>
+          <!-- Modal Structure -->
+          <div id="modal1" class="modal" tabindex="0">
+            <div class="modal-content">
+              {% block content %}
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="login">
+                <input type="hidden" name="next" value="{{ next }}">
+              </form>
+              {% endblock %}
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="modal-close waves-effect waves-green btn-flat">Login</a>
+            </div>
+          </div>
+
+          <li><a href="#">Logout</a></li>
         </ul>
       </div>
     </nav>
   </header>
-  <main class="container">
-    {% block content %}
-      <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
-    {% endblock %}
-  </main>
+
+
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2020 theSpot &nbsp;</div>
   </footer>
+  <script>
+    $(document).ready(function(){
+      $('.modal').modal();
+
+    });
+  </script>
 </body>
 
 </html>

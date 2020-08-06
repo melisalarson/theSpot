@@ -16,8 +16,8 @@ def signup_login (request):
 def signup (request):
   return render(request, 'signup.html')
 
-def loginn (request):
-  return render(request, 'loginn.html')
+def login (request):
+  return render(request, 'login.html')
 
 def profile (request, user_id):
   user = Profile.objects.get(id=user_id).__dict__
