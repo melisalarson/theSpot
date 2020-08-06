@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import City, Post, Profile
 from .forms import ProfileForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -21,8 +24,8 @@ def signup (request):
 
   return render(request, 'signup.html')
 
-def login (request):
-  return render(request, 'login.html')
+# def login (request):
+#   return render(request, 'login.html')
 
 def profile (request, user_id):
   user = Profile.objects.get(id=user_id).__dict__
