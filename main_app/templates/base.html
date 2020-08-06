@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>theSpot</title>
+  <!-- materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- main css -->
+  <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+
+
 </head>
 
 <body>
@@ -18,32 +24,44 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
         </ul>
         <ul class="right">
-          <li><a href="{% url 'index' %}">Cities</a></li>
-          <li><a href="#modal1">SignUp</a></li>
-          <li><a href="{% url 'loginn' %}">Loginn</a></li>
-
-          <li><a href="{% url 'home' %}">Logout</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" class="modal modal-open">Cities</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" class="modal modal-open">Profile</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" class="modal modal-open">Sign Up</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" class="modal modal-open">Sign Login</a></li>
+          <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1" class="modal modal-open">Log Out</a></li>
         </ul>
       </div>
     </nav>
   </header>
-  <button data-target="modal1" class="btn modal-trigger">Modal</button>
-  <div id="modal1" class="modal open" tabindex="0" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">
+  <main class="container">
+    
+
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal-open modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+      <h4>modal is showing</h4>
+      <p>display information for user to sign up</p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Disagree</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat .modal-close">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Sign Up</a>
     </div>
   </div>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2020 theSpot &nbsp;</div>
-  </footer>
+
+  
+  
+</main>
+<footer class="page-footer">
+  <div class="right">All Rights Reserved, &copy; 2020 theSpot &nbsp;</div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  });
+</script>
 </body>
 
 </html>
