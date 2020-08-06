@@ -55,10 +55,18 @@ def signup (request):
 
 
 @login_required
-def profile (request, user_id): # this one should be edit profile?
+def profile (request): # this one should be edit profile?
   # profile = Profile.objects.get(user=request.user)
-  profile = Profile.objects.get(user=request.user).__dict__
-  # city = City.objects.get(id=1).__dict__
+  # profile = Profile.objects.all()
+  profile = Profile.objects.get(user=request.user)
+  # user = profile.user
+  # users = User.objects.filter(city_id=User['city_id'])
+  
+  # first_name = Profile.objects.get(user=request.user).first_name
+  # print(users)
+  posts = Post.objects.get(profile)
+  # post = posts.title
+  city = profile.city.name
   # city = City.objects.get(profile.city_id)
   # join_date = User.objects.get(request.date_joined)
   # user = User.objects.get(id=user_id)
@@ -67,14 +75,17 @@ def profile (request, user_id): # this one should be edit profile?
   # print(city)
   # print(posts)
 
-  profile_form = ProfileForm(profile)
+  # profile_form = ProfileForm(instance=profile.)
 
   print('**************this is form')
-  print(profile_form)
+  # print(profile_form)
   context = {
     'profile': profile,
-    # 'city': city,
+    'city': city,
     'profile_form': profile_form,
+    'posts': posts,
+    # 'user': user
+    # 'first_name': first_name
   }
   return render(request, 'profile.html', context)
   # return HttpResponse('hello')

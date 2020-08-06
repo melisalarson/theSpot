@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tz %}
 {% block content %}
 
 <h1>Profile Page</h1>
@@ -8,23 +9,20 @@
 
 <div class="card">
   <div class="card-content">
-    <form method="POST" action="{% url 'profile' user.id city.id %}">
+    <form method="POST" action="{% url 'profile' %}">
 
       {% csrf_token %}
-      {{ profile }} 
       <br><br>
-      {{ profile.id }} prof id
+      {{ profile.user.first_name }}
       <br><br>
-      {{ profile.city_id }} city
-      <br><br>
-      {{ profile.user_id }} user id
-      <br><br>
-      {{ profile.profile_picture}} pic
-      <br><br>   
-      {{ user }}
-      <br><br>
-      {{ profile_form.as_p }}
+      {{ profile.user.date_joined | timezone:'us/pacific' }} PST
 
+      <br><br>
+      <p>City: {{ profile.city }}</p>
+      <br><br>
+      <p>Profile Photo: {{ profile.profile_picture }}</p>
+      <br><br>
+      <p>Posts {{ posts }}</p>
       <br><br>
       <button type="submit" name="update">Update</button>
     </form>
