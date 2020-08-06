@@ -60,7 +60,7 @@ def profile (request, user_id): # this one should be edit profile?
   profile = Profile.objects.get(user=request.user).__dict__
   # city = City.objects.get(id=1).__dict__
   # city = City.objects.get(profile.city_id)
-  join_date = User.objects.get(request.date_joined)
+  # join_date = User.objects.get(request.date_joined)
   # user = User.objects.get(id=user_id)
   print('**************this is profile')
   print(profile)

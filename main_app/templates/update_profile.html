@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Profile Page</h1>
+<hr />
+<p>this is the profile page</p>
+
+
+<div class="card">
+  <div class="card-content">
+    <form method="POST" action="{% url 'profile' user.id city.id %}">
+
+      {% csrf_token %}
+      {{ form.as_p }}
+      {{ user.first_name }}
+      {{ city.name }}
+      {{ user.user_date }}
+      <br>
+      <button type="submit" name="update">Update Profile</button>
+    </form>
+
+  </div>
+</div>
+<script>
+  const citySelectEl = document.getElementById("id_city");
+    M.FormSelect.init(citySelectEl);
+</script>
+
+{% endblock %}
