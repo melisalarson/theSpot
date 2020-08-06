@@ -3,15 +3,16 @@ from django.http import HttpResponse
 from .models import City, Post, Profile, User
 from .forms import ProfileForm
 from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 def home (request):
-  form = UserCreationForm()
-  return render(request, 'home.html', {'form' : form})
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
+  return render(request, 'home.html', {'signup_form' : signup_form, 'form':form})
 
 def cities (request):
   cities = City.objects.all()
