@@ -1,45 +1,118 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import City, Post, Profile
+from .models import City, Post, Profile, User
 from .forms import ProfileForm
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
 def home (request):
-  return render(request, 'home.html')
+  form = UserCreationForm()
+  return render(request, 'home.html', {'form' : form})
 
-# option A sign up and login together
-def signup_login (request):
-  return render(request, 'signupLogin.html')
+def cities (request):
+  cities = City.objects.all()
+  print(cities[0].__dict__)
+  return render(request, 'cities.html', {'cities': cities})
+  
+def city_index (request, city_id):
+  city = City.objects.get(id=city_id)
+  print(cities)
+  return render(request, 'city_index.html', {'city': city})
 
-  # option B sign up and login separate
+def posts (request):
+  posts = Post.objects.all()
+  print(posts[0])
+  return render(request, 'posts.html', {'posts': posts})
+
+def post_index (request, post_id):
+  post = Post.objects.get(id=post_id)
+  print(post)
+  return render(request, 'post_index.html', {'post': post})
+
 def signup (request):
-  # User - get it using userForm
-  # user.save as post => creates user
-  # with this user object get user id and create a profile
-
-
-  return render(request, 'signup.html')
-
-def loginn (request):
-  return render(request, 'loginn.html')
-
-def profile (request, user_id):
-  user = Profile.objects.get(id=user_id).__dict__
-  city = City.objects.get(user.city_id).__dict__
-
-  print('this is my user ...')
-  print(user)
-  print('this is my city ...')
-  print(city)
-  form = ProfileForm(user)
-  print(form)
+  error = ''
+  form = UserCreationForm()
   context = {
-    'user': user,
     'form': form,
-    'city': city,
+    'error': error,
+  }
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      auth_login(request, user)
+      return redirect('profile')
+    else:
+      return render(request, 'registration/signup.html', {'form': form, 'error': form.errors})
+      # error_message = 'Invalid credentials - please try again'
+  else:
+    return render(request, 'registration/signup.html', context)
+
+
+@login_required
+def profile (request, user_id): # this one should be edit profile?
+  # profile = Profile.objects.get(user=request.user)
+  profile = Profile.objects.get(user=request.user).__dict__
+  # city = City.objects.get(id=1).__dict__
+  # city = City.objects.get(profile.city_id)
+  join_date = User.objects.get(request.date_joined)
+  # user = User.objects.get(id=user_id)
+  print('**************this is profile')
+  print(profile)
+  # print(city)
+  # print(posts)
+
+  profile_form = ProfileForm(profile)
+
+  print('**************this is form')
+  print(profile_form)
+  context = {
+    'profile': profile,
+    # 'city': city,
+    'profile_form': profile_form,
   }
   return render(request, 'profile.html', context)
+  # return HttpResponse('hello')
 
-def index (request):
-      return render(request, 'index.html')
+# @login_required
+# def profile (request):
+#   # profile = Profile.objects.get(user=request.user)
+#   profile = Profile.objects.get(user=request.user).__dict__
+#   # city = Profile.objects.get(profile.city)
+#   # user = City.objects.get(profile.user)
+#   print(profile)
+#   # print(city)
+#   # print(posts)
+
+#   form = ProfileForm(profile)
+#   print(form)
+#   context = {
+#     'profile': profile,
+#     # 'city': city,
+#     'form': form,
+#   }
+#   return render(request, 'profile.html', context)
+#   # return HttpResponse('hello')
+
+# @login_required
+# def posts_index(request):
+#   posts = Post.objects.filter(user=request.user)
+#   return render(request, 'posts/index.html', { 'posts': posts })
+
+# @login_required
+# def new_post(request):
+#   if request.method == 'POST':
+#       form = PostForm(request.POST)
+#       if form.is_valid():
+#           post = form.save(commit=False)
+#           post.user = request.user
+#           post.save()
+#           return redirect('profile', post.id)
+#   else:
+#       form = PostForm()
+#   context = { 'form': form }
+#   return render(request, 'posts/post_form.html', context)

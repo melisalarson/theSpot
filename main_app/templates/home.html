@@ -1,8 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>theSpot home page</h1>
-<hr />
-<p>cities and blogs</p>
+
+<!-- main image -->
+<div class="carousel">
+  <img class="worldmap" src="../static/worldmap.png" alt="map of world">
+</div>
+
+<!-- one liner description -->
+<div>
+  <h5>A travel community for your favorite locations around the
+  world</h5>
+</div>
+
+<!-- topics -->
+<div class="row">
+  <div class="topics">
+    <div class="topic col s4">
+      <h6>Topic</h6>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eaque nam magni saepe mollitia! Deleniti ipsa provident quos laudantium deserunt.</p>
+    </div>
+    <div class="topic col s4">
+      <h6>Topic</h6>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eaque nam magni saepe mollitia! Deleniti ipsa provident quos laudantium deserunt.</p>
+    </div>
+    <div class="topic col s4">
+      <h6>Topic</h6>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At eaque nam magni saepe mollitia! Deleniti ipsa provident quos laudantium deserunt.</p>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
