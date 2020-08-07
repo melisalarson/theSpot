@@ -3,11 +3,18 @@
 
 <h1>Edit Post</h1>
 
-<form method="post" action="{% url 'posts' %}">
+<form method="POST" action="{% url 'edit_post' post.id %}">
   {% csrf_token %}
   {{ edit_form.as_p }}
   <br>
   <input type="submit" class="btn2" value="Confirm Edit">
 </form>
 
+  <!-- jquery/metrialize cript for modals -->
+  <script>
+    const citySelectEl = document.getElementById("id_city");
+    M.FormSelect.init(citySelectEl);
+    const userSelectEl = document.getElementById("id_profile");
+    M.FormSelect.init(userSelectEl);
+  </script>
 {% endblock %}

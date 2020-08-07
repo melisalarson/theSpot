@@ -15,12 +15,13 @@ urlpatterns = [
   path('posts/', views.posts, name='posts'),
   path('posts/<int:post_id>/', views.post_index, name='post_index'),
   path('posts/<int:post_id>/edit', views.edit_post, name='edit_post'),
-  path('posts/<int:post_id>/delete', views.post_index, name='post_index'),
+  path('posts/<int:post_id>/delete', views.delete_post, name='delete_post'),
   path('posts/new/', views.new_post, name='new_post'),
 
 
   path('accounts/signup', views.signup, name='signup'),
   path('profile/', views.profile, name='profile'),
+  path('profile/edit', views.edit_profile, name='edit_profile'),
   path('accounts/', include('django.contrib.auth.urls')),
         # this line7 adds the following links for us to use 
             # accounts/login/ [name='login']
