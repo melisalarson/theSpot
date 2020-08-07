@@ -11,10 +11,10 @@
     <a href="{% url 'edit_profile' %}"><button class= "btn2">Update Details</button></a>
     <br>
     <br>
-    <p>Name: {{ profile.profile_name }}</p>
-    <p>City: {{ profile.city }}</p>
-    <p>Profile Picture: {{ profile.profile_picture }}</p>
-    <p>Join Date: {{ profile.user.date_joined }}</p>
+    <h6>Name: {{ profile.profile_name }}</h6>
+    <h6>City: {{ profile.city }}</h6>
+    <h6>Profile Picture: {{ profile.profile_picture.url }}</h6>
+    <h6>Join Date: {{ profile.user.date_joined }}</h6>
     <br>
   </div>
 </div>

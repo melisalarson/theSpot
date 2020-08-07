@@ -13,6 +13,7 @@
     <a href="{% url 'post_index' post.id %}">
       <span class="card-title">{{ post.title }}</span>
     </a>
+    
 
     <p>{{ post.description }}</p>
     <p>{{ post.picture }}</p>
@@ -27,7 +28,7 @@
     {% comment %} <a href="{% url 'delete_post' post.id %}"> {% endcomment %}
       {% comment %} <button class="btn2" type="submit" name="delete">Delete Post</button> {% endcomment %}
     </a>
-
+<p>{{ post }}</p>
   </div>
 </div>
 {% endfor %}
