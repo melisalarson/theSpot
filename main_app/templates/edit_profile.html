@@ -9,19 +9,11 @@
 
 <div class="card">
   <div class="card-content">
-    <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'edit_profile' %}">
       {% csrf_token %}
-      
-      First Name: <input type="text" placeholder="{{ profile.user.first_name }}">
-      Last Name: <input type="text" placeholder="{{ profile.user.last_name }}">
-      
-      <p>City: {{form.city}}</p>
 
-      <br><br><br>
-      <p>Profile Photo: <input type="file" name="document"></p>
-      <br>
-      <p>Posts: </p>
-      <br>
+      {{ profile_form.as_p }}
+      <br><br>
 
       <button type="submit" name="update">Update Profile</button>
     </form>

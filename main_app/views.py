@@ -33,10 +33,14 @@ def cities (request):
   print(cities[0].__dict__)
   return render(request, 'cities.html', {'cities': cities})
   
-def city_index (request, city_id):
-  city = City.objects.get(id=city_id)
-  print(cities)
-  return render(request, 'city_index.html', {'city': city})
+# def city_index (request, city_id):
+#   city = City.objects.get(id=city_id)
+#   posts = Post.objects.get(city=city_id).order_by('-date')
+#   context = {
+#     'city': city,
+#     'posts': posts,
+#     }
+#   return render(request, 'city_index.html', context)
 
 def posts (request):
   posts = Post.objects.all()
@@ -64,55 +68,56 @@ def upload(request):
 def signup (request):
   error = ''
   form = UserCreationForm()
+  city = City.objects.all().first()
+  print(city)
+  picture = 'media/uploads/continents-28616_960_720.png'
   context = {
     'form': form,
     'error': error,
+    'city': city,
   }
   if request.method == 'POST':
     form = UserCreationForm(request.POST)
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
-      profile_user = Profile.objects.create(user=user)
+      profile_user = Profile(user=user, profile_name=user.username, city=city, profile_picture=picture)
       profile_user.save()
       return redirect('profile')
     else:
       return render(request, 'registration/signup.html', {'form': form, 'error': form.errors})
-      # error_message = 'Invalid credentials - please try again'
   else:
     return render(request, 'registration/signup.html', context)
 
 
 @login_required
-def profile (request): # this one should be edit profile?
+def profile (request):
   profile = Profile.objects.get(user=request.user)
-  print(profile)
-  city = profile.city
-  # city = City.objects.get(profile.city)
-
-  form = ProfileForm(instance=profile)
+  profile_form = ProfileForm(instance=profile)
+  posts = Post.objects.filter(profile=profile).order_by('-date')
   context = {
     'profile': profile,
-    'form': form,
-    'city': city,
+    'profile_form': profile_form,
+    'posts': posts,
   }
   return render(request, 'profile.html', context)
 
 @login_required
 def edit_profile(request):
   profile = Profile.objects.get(user=request.user)
-  cities = City.objects.all()
-  posts = Post.objects.all()
-  context = {'profile': profile, 'cities': cities, 'posts': posts}
+  # cities = City.objects.all()
+  # posts = Post.objects.all()
+  context = {'profile': profile}
   if request.method == 'POST':
     profile_form = ProfileForm(request.POST, instance=profile)
     if profile_form.is_valid():
-      profile_user = profile_form.save()
-      return redirect('edit_profile')
+      profile_form.save()
+      return redirect('profile')
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     profile_form = ProfileForm(instance=profile)
+    context['profile_form'] = profile_form
     return render(request, 'edit_profile.html', context)
 
 
