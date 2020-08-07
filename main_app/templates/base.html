@@ -37,8 +37,8 @@
             <li><a href="{% url 'profile' %}">Profile</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
-            <li><a class="waves-effect waves-light btn modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</a></li>
-            <li><a class="waves-effect waves-light btn modal-trigger" href="#modal-login" class="modal modal-open">Login</a></li>
+            <li><a class="waves-effect waves-light btn2 modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</a></li>
+            <li><a class="waves-effect waves-light btn2 modal-trigger" href="#modal-login" class="modal modal-open">Login</a></li>
           {% endif %}
         </ul>
       </div>
@@ -58,7 +58,7 @@
         <form method="post" action="{% url 'signup' %}">
           {% csrf_token %}
           {{ signup_form.as_p }}
-          <input type="submit" class="btn" value="signup">
+          <input type="submit" class="btn2" value="signup">
         </form>
 
       </div>
@@ -77,8 +77,8 @@
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" class="btn" value="login">
-        <input type="hidden" name="next" value="{{ next }}">
+        <input type="submit" class="btn2" value="login">
+        <input type="hidden" class="btn2" name="next" value="{{ next }}">
       </form>
 
       </div>

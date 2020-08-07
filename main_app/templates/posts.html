@@ -4,13 +4,13 @@
 <h1>all posts page</h1>
 <hr />
 
-
+<a href="{% url 'new_post' %}"><button class="btn2">Add Post</button></a>
 
 {% for post in posts %}
 <div class="card">
   <div class="card-content">
 
-    <a href="{{ post.id }}">
+    <a href="{% url 'post_index' post.id %}">
       <span class="card-title">{{ post.title }}</span>
     </a>
 
@@ -19,6 +19,14 @@
     <p>{{ post.date }}</p>
     <p>{{ post.city }}</p>
     <p>{{ post.profile }}</p>
+
+    <a href="{% url 'edit_post' post.id %}">
+      <button class="btn2" type="submit" name="edit">Edit Post</button>
+    </a>
+    <br><br>
+    <a href="{% url 'delete_post' post.id %}">
+      <button class="btn2" type="submit" name="delete">Delete Post</button>
+    </a>
 
   </div>
 </div>

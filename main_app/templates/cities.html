@@ -4,22 +4,26 @@
 <h1>all cities page</h1>
 <hr />
 
-
-
 {% for city in cities %}
 <div class="card">
   <div class="card-content">
-
-    <a href="{{ city.id }}">
-      <span class="card-title">{{ city.name }}</span>
-    </a>
-
-    <p>{{ city.country }}</p>
-    <p>{{ city.picture }}</p>
-    
+    <div class="row">
+      <div class="cities">
+        <div class="city col s4">
+          <p>{{ city.picture }}</p>
+        </div>
+        <div class="city col s8">
+          <a href="{{ city.id }}">
+            <span class="card-title">{{ city.name }}, {{ city.country }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endfor %}
 
 
 {% endblock %}
+
+
