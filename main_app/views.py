@@ -16,28 +16,68 @@ def home (request):
   return render(request, 'home.html', {'signup_form' : signup_form, 'form':form})
 
 def cities (request):
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
   cities = City.objects.all()
   print(cities[0].__dict__)
-  return render(request, 'cities.html', {'cities': cities})
+  return render(request, 'cities.html', {'cities': cities, 'signup_form' : signup_form, 'form':form})
   
 def city_index (request, city_id):
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
   city = City.objects.get(id=city_id)
   posts = Post.objects.filter(city=city).order_by('-date')
   context = {
     'city': city,
     'posts': posts,
+    'signup_form' : signup_form,
+    'form':form,
     }
   return render(request, 'city_index.html', context)
 
 def posts (request):
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
   posts = Post.objects.all()
   print(posts[0])
-  return render(request, 'posts.html', {'posts': posts})
+  return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form})
 
 def post_index (request, post_id):
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
   post = Post.objects.get(id=post_id)
   print(post)
-  return render(request, 'post_index.html', {'post': post})
+  return render(request, 'post_index.html', {'post': post, 'signup_form': signup_form, 'form':form})
+
+@login_required
+def new_post(request):
+  if request.method == 'POST':
+    post_form = PostForm(request.POST)
+    post_form.profile = Profile.objects.get(user=request.user)
+    if post_form.is_valid():
+      new_post = post_form.save(commit=false)
+      new_post.save()
+      return redirect('cities', post.id)
+    else:
+      return HttpResponse('invalid input, go back on your browser and try again')
+  else:
+    post_form = PostForm()
+    return render(request, 'new_post.html', {'post_form': post_form,})
+
+@login_required
+def edit_post(request, post_id):
+  # profile = Profile.objects.get(user=request.user)
+  post = Post.objects.get(id=post_id)
+  if request.method == 'POST':
+    edit_form = PostForm(request.POST, instance=post)
+    if form.is_valid():
+      post = edit_form.save()
+      return redirect('cities', post_id)
+    else:
+      return HttpResponse('invalid input, go back on your browser and try again')
+  else:
+    edit_form = PostForm(instance=post)
+    return render(request, 'edit_post.html', {'edit_form': edit_form})
 
 def signup (request):
   error = ''
@@ -135,16 +175,3 @@ def edit_profile(request):
 #   posts = Post.objects.filter(user=request.user)
 #   return render(request, 'posts/index.html', { 'posts': posts })
 
-# @login_required
-# def new_post(request):
-#   if request.method == 'POST':
-#       form = PostForm(request.POST)
-#       if form.is_valid():
-#           post = form.save(commit=False)
-#           post.user = request.user
-#           post.save()
-#           return redirect('profile', post.id)
-#   else:
-#       form = PostForm()
-#   context = { 'form': form }
-#   return render(request, 'posts/post_form.html', context)

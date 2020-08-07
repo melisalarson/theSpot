@@ -22,5 +22,5 @@ class CityForm (forms.ModelForm):
 class PostForm (forms.ModelForm):
   class Meta:
     model = Post
-    # fields = '__all__'
-    fields = ['title', 'description', 'picture']
+    fields = '__all__'
+    # fields = ['title', 'description', 'picture', 'city']
