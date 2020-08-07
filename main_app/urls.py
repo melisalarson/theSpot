@@ -18,6 +18,8 @@ urlpatterns = [
   path('posts/<int:post_id>/delete', views.post_index, name='post_index'),
   path('posts/new/', views.new_post, name='new_post'),
 
+  path('upload/', views.upload, name='upload'),
+
 
   path('accounts/signup', views.signup, name='signup'),
   path('profile/', views.profile, name='profile'),
