@@ -1,10 +1,8 @@
 from django.urls import path
 from . import views
 from django.urls import include
-# from django.contrib import admin
 
 urlpatterns = [
-  # path('admin/', admin.site.urls),
   path('', views.home, name='home'),
 
   path('cities/', views.cities, name='cities'),
@@ -15,6 +13,7 @@ urlpatterns = [
 
   path('accounts/signup', views.signup, name='signup'),
   path('profile/', views.profile, name='profile'),
+  path('profile/edit', views.edit_profile, name='edit_profile'),
   path('accounts/', include('django.contrib.auth.urls')),
         # this line7 adds the following links for us to use 
             # accounts/login/ [name='login']

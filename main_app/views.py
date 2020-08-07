@@ -1,10 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import City, Post, Profile, User
-from .forms import ProfileForm
+from .forms import ProfileForm, UserForm, CityForm, PostForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+
+
+
+
+# TEMP CAT DATA
+# posts = [
+#   Post('title1', 
+#   'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde.', 
+#   '2020-08-08', 'SF', 1 ),
+#   Post('title2', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. shell', '2020-08-08', 'NY',2),
+#   Post('title3', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. tripod', '2020-08-08', 'LA',3),
+# ]
+
 
 
 # Create your views here.
@@ -34,47 +47,8 @@ def post_index (request, post_id):
   print(post)
   return render(request, 'post_index.html', {'post': post})
 
-
-
-
-@login_required
-def profile (request): # this one should be edit profile?
-  # profile = Profile.objects.get(user=request.user)
-  # profile = Profile.objects.all()
-  profile = Profile.objects.get(user=request.user)
-  # user = profile.user
-  # users = User.objects.filter(city_id=User['city_id'])
-  
-  # first_name = Profile.objects.get(user=request.user).first_name
-  # print(users)
-  # posts = Post.objects.get(profile)
-  # post = posts.title
-  city = profile.city.name
-  # city = City.objects.get(profile.city_id)
-  # join_date = User.objects.get(request.date_joined)
-  # user = User.objects.get(id=user_id)
-  print('**************this is profile')
-  print(profile)
-  # print(city)
-  # print(posts)
-
-  profile_form = ProfileForm(instance=profile)
-
-  print('**************this is form')
-  # print(profile_form)
-  context = {
-    'profile': profile,
-    'city': city,
-    'profile_form': profile_form,
-    'posts': posts,
-    # 'user': user
-    # 'first_name': first_name
-  }
-  return render(request, 'profile.html', context)
-  # return HttpResponse('hello')
-
 def signup (request):
-  error = ''
+      error = ''
   form = UserCreationForm()
   context = {
     'form': form,
@@ -85,6 +59,8 @@ def signup (request):
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
+      profile_user = Profile.objects.create(user=user)
+      profile_user.save()
       return redirect('profile')
     else:
       return render(request, 'registration/signup.html', {'form': form, 'error': form.errors})
@@ -93,25 +69,73 @@ def signup (request):
     return render(request, 'registration/signup.html', context)
 
 
-# @login_required
-# def profile (request):
+@login_required
+def profile (request): # this one should be edit profile?
+  profile = Profile.objects.get(user=request.user)
+  print(profile)
+  city = profile.city
+  # city = City.objects.get(profile.city)
+
+  form = ProfileForm(instance=profile)
+  context = {
+    'profile': profile,
+    'form': form,
+    'city': city,
+  }
+  return render(request, 'profile.html', context)
+
+@login_required
+def edit_profile(request):
+  profile = Profile.objects.get(user=request.user)
+  cities = City.objects.all()
+  posts = Post.objects.all()
+  context = {'profile': profile, 'cities': cities, 'posts': posts}
+  if request.method == 'POST':
+    profile_form = ProfileForm(request.POST, instance=profile)
+    if profile_form.is_valid():
+      profile_form.save()
+      return redirect('edit_profile')
+    else:
+      return HttpResponse('invalid input, go back on your browser and try again')
+  else:
+    profile_form = ProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', context)
+
+
+# # @login_required
+# # def profile (request): # this one should be edit profile?
 #   # profile = Profile.objects.get(user=request.user)
-#   profile = Profile.objects.get(user=request.user).__dict__
-#   # city = Profile.objects.get(profile.city)
-#   # user = City.objects.get(profile.user)
-#   print(profile)
+#   # profile = Profile.objects.all()
+#   profile = Profile.objects.get(user=request.user)
+#   # user = profile.user
+#   # users = User.objects.filter(city_id=User['city_id'])
+  
+#   # first_name = Profile.objects.get(user=request.user).first_name
+#   # print(users)
+#   # posts = Post.objects.get(profile)
+#   # post = posts.title
+#   city = profile.city.name
+#   # city = City.objects.get(profile.city_id)
+#   # join_date = User.objects.get(request.date_joined)
+#   # user = User.objects.get(id=user_id)
+#   print('**************this is profile')
+#   # print(profile)
 #   # print(city)
 #   # print(posts)
 
-#   form = ProfileForm(profile)
-#   print(form)
+#   profile_form = ProfileForm(instance=profile)
+
+#   print('**************this is form')
+#   # print(profile_form)
 #   context = {
 #     'profile': profile,
-#     # 'city': city,
-#     'form': form,
+#     'city': city,
+#     'profile_form': profile_form,
+#     'posts': posts,
+#     # 'user': user
+#     # 'first_name': first_name
 #   }
 #   return render(request, 'profile.html', context)
-#   # return HttpResponse('hello')
 
 # @login_required
 # def posts_index(request):
