@@ -6,7 +6,7 @@ urlpatterns = [
   path('', views.home, name='home'),
 
   path('cities/', views.cities, name='cities'),
-  path('cities/<int:city_id>/', views.city_index, name='city_index'),
+  # path('cities/<int:city_id>/', views.city_index, name='city_index'),
 
   path('posts/', views.posts, name='posts'),
   path('posts/<int:post_id>/', views.post_index, name='post_index'),

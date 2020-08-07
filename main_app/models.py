@@ -12,14 +12,14 @@ class City(models.Model):
     return self.name
     
 class Profile(models.Model):
-  # city = models.ForeignKey(City, on_delete=models.CASCADE)
-  profile_name: models.CharField(max_length=100)
-  city = models.CharField(max_length=100)
+  city = models.ForeignKey(City, on_delete=models.CASCADE)
+  profile_name = models.CharField(max_length=100)
+  # city = models.CharField(max_length=100)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   profile_picture = models.FileField(upload_to='uploads/')
 
-  # def __str__(self):
-  #   return self.profile_name
+  def __str__(self):
+    return self.profile_name
 
 
 class Post(models.Model):
