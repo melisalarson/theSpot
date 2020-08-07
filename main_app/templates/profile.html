@@ -25,15 +25,9 @@
     {% for post in posts %}
     <div class="row">
       <div class="posts">
-        <div class="post col s3">
-          <p>{{post.picture}}</p>
-        </div>
-        <div class="post col s9">
           <a href="{% url 'post_index' post.id%}">
             <h6>{{post.title}}</h6>
           </a>
-          <p>{{post.description}}</p>
-        </div>
       </div>
     </div>
     {% endfor %}
