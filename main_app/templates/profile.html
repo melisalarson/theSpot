@@ -10,20 +10,24 @@
 <div class="card">
   <div class="card-content">
     <form method="POST" action="{% url 'profile' %}">
-
       {% csrf_token %}
-      <br><br>
-      {{ profile.user.first_name }}
-      <br><br>
-      {{ profile.user.date_joined | timezone:'us/pacific' }} PST
-
-      <br><br>
-      <p>City: {{ profile.city }}</p>
-      <br><br>
-      <p>Profile Photo: {{ profile.profile_picture }}</p>
-      <br><br>
-      <p>Posts {{ posts }}</p>
-      <br><br>
+      <p> 
+        Name: {{profile.user.first_name}}
+        <a href="{% url 'edit_profile' %}">edit</a>
+      </p>
+      <p>
+        City: {{ profile.city }}
+      <a href="{% url 'edit_profile' %}">edit</a>
+      </p>
+      <p>
+        Joined On: {{ profile.user.date_joined | timezone:'us/pacific' }} PST
+      </p>
+      <br><br><br>
+      <p>
+        Profile Photo: {{ profile.profile_picture }}
+        <a href="{% url 'edit_profile' %}">edit</a>
+      </p>
+      <p>Posts: {{ posts }}</p>
       <button type="submit" name="update">Update</button>
     </form>
 
