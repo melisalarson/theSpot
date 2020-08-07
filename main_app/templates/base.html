@@ -27,17 +27,34 @@
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
         </ul>
+        
+          <ul class="unorderedlist">
+            <li><a class="closer" href="{% url 'cities' %}">Cities</a></li>
+            <li><a class="closer" href="{% url 'posts' %}">Posts</a></li>
+            {% if user.is_authenticated %}
+              <li><a class="closer" href="{% url 'profile' %}">Profile</a></li>
+              <li><button class="btn3 closer" href="{% url 'logout' %}">Log Out</button></li>
+            {% else %}
+              <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Sign Up</button></li>
+              <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Login</button></li>
+            {% endif %}
+          </ul>
+          
+          <!-- <select>
+          <option value="" selected="selected"> Selected</option>
+            <option class="right">
+              <option value="{% url 'cities' %}">Cities</option>
+              <option value="{% url 'posts' %}">Posts</option>
+              {% if user.is_authenticated %}
+                <option value="{% url 'profile' %}">Profile</option>
+                <option value="{% url 'logout' %}"><button class="btn3">Log Out</button></option>
+              {% else %}
+                <option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Sign Up</option>
+                <option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Login</option>
+              {% endif %}
+        </option>
+        </select> -->
 
-        <ul class="right">
-          <li><a href="{% url 'cities' %}">Cities</a></li>
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}" class="btn2">Log Out</a></li>
-          {% else %}
-            <li><a class="btn2 modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</a></li>
-            <li><a class="btn2 modal-trigger" href="#modal-login" class="modal modal-open">Login</a></li>
-          {% endif %}
-        </ul>
       </div>
     </nav>
   </header>
@@ -127,6 +144,29 @@
     $(document).ready(function () {
       $('.modal').modal();
     });
+
+    // Create the dropdown base
+$("<select />").appendTo("nav");
+
+// Create default option "Go to..."
+$("<option />", {
+   "selected": "selected",
+   "value"   : "",
+   "text"    : "Go to..."
+}).appendTo("nav select");
+
+// Populate dropdown with menu items
+$("nav a").each(function() {
+ var el = $(this);
+ $("<option />", {
+     "value"   : el.attr("href"),
+     "text"    : el.text()
+ }).appendTo("nav select");
+});
+
+$("nav select").change(function() {
+  window.location = $(this).find("option:selected").val();
+});
   </script>
 
 </body>
