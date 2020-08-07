@@ -19,9 +19,12 @@ urlpatterns = [
   path('posts/<int:post_id>/delete', views.post_index, name='post_index'),
   path('posts/new/', views.new_post, name='new_post'),
 
+  path('upload/', views.upload, name='upload'),
+
 
   path('accounts/signup', views.signup, name='signup'),
   path('profile/', views.profile, name='profile'),
+  path('profile/edit', views.edit_profile, name='edit_profile'),
   path('accounts/', include('django.contrib.auth.urls')),
         # this line7 adds the following links for us to use 
             # accounts/login/ [name='login']

@@ -80,25 +80,21 @@ def edit_post(request, post_id):
     edit_form = PostForm(instance=post)
     return render(request, 'edit_post.html', {'edit_form': edit_form})
 
-def upload(request):
-  context = {
-    'profile': profile,
-    'form': form,
-    'city': city,
-    }
+def upload(request, context):
   if request.method == 'POST':
     uploaded_file = request.FILES['document']
     fs = FileSystemStorage()
     name = fs.save(uploaded_file.name, uploaded_file)
     context['url'] = fs.url(name)
-  return render(request, 'upload.html', context)
+    print(profile.default_picture)
+  return render(request, 'profile.html', context)
 
 def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
   print(city)
-  picture = 'media/defaul profile pic.png'
+  picture = 'media/default_pic.png'
   context = {
     'form': form,
     'error': error,
@@ -122,12 +118,13 @@ def signup (request):
 def profile (request):
   profile = Profile.objects.get(user=request.user)
   profile_form = ProfileForm(instance=profile)
-  posts = Post.objects.filter(profile=profile).order_by('-date')
+  posts = Post.objects.filter(profile=profile).order_by('date')
   context = {
     'profile': profile,
     'profile_form': profile_form,
     'posts': posts,
   }
+  print(profile.default_picture)
   return render(request, 'profile.html', context)
 
 @login_required
@@ -137,15 +134,21 @@ def edit_profile(request):
   # posts = Post.objects.all()
   context = {'profile': profile}
   if request.method == 'POST':
-    profile_form = ProfileForm(request.POST, instance=profile)
+    profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
     if profile_form.is_valid():
       profile_form.save()
+      context['profile_form'] = profile_form
+      context['city'] = profile.city
+      print(profile.default_picture)
+      # return redirect('upload', context)
       return redirect('profile')
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     profile_form = ProfileForm(instance=profile)
     context['profile_form'] = profile_form
+    # context['city'] = profile.city
+    # return redirect('upload', context)
     return render(request, 'edit_profile.html', context)
 
 

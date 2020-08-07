@@ -9,13 +9,16 @@
 
 <div class="card">
   <div class="card-content">
-    <form method="POST" action="{% url 'edit_profile' %}">
+    <form method="POST" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
       {% csrf_token %}
-
       {{ profile_form.as_p }}
+      {{ user.first_name }}
+      {{ city.name }}
+      
+
       <br><br>
 
-      <button class="btn2" type="submit" name="update">Update</button>
+      <button class="btn" type="submit" name="update">Update</button>
     </form>
 
   </div>
