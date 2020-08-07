@@ -2,22 +2,30 @@
 {% load static %}
 {% block content %}
 
-<h1>City: {{ city.name }}</h1>
+<h1>City: {{ city.name }}, {{ city.country }}</h1>
 <hr />
 
 
-
-
+<h5>POSTS</h5>
+{% for post in posts %}
 <div class="card">
   <div class="card-content">
-
-    <p>{{ city.name }}, {{ city.country }}</p>
-    <p>{{ post.title }}</p>
-    <p><img src="{{ city.picture }}" alt=""></p>
-
+    <div class="row">
+      <div class="posts">
+        <div class="post col s3">
+          <p>{{post.picture}}</p>
+        </div>
+        <div class="post col s9">
+          <a href="{% url 'post_index' post.id%}">
+            <h6>{{post.title}}</h6>
+          </a>
+          <p>{{post.description}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
+{% endfor %}
 
 
 {% endblock %}

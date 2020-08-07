@@ -8,18 +8,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
-# TEMP CAT DATA
-# posts = [
-#   Post('title1', 
-#   'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde.', 
-#   '2020-08-08', 'SF', 1 ),
-#   Post('title2', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. shell', '2020-08-08', 'NY',2),
-#   Post('title3', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. tripod', '2020-08-08', 'LA',3),
-# ]
-
-
-
 # Create your views here.
 
 def home (request):
@@ -32,14 +20,14 @@ def cities (request):
   print(cities[0].__dict__)
   return render(request, 'cities.html', {'cities': cities})
   
-# def city_index (request, city_id):
-#   city = City.objects.get(id=city_id)
-#   posts = Post.objects.get(city=city_id).order_by('-date')
-#   context = {
-#     'city': city,
-#     'posts': posts,
-#     }
-#   return render(request, 'city_index.html', context)
+def city_index (request, city_id):
+  city = City.objects.get(id=city_id)
+  posts = Post.objects.filter(city=city).order_by('-date')
+  context = {
+    'city': city,
+    'posts': posts,
+    }
+  return render(request, 'city_index.html', context)
 
 def posts (request):
   posts = Post.objects.all()
