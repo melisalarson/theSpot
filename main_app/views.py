@@ -1,10 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import City, Post, Profile, User
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, CityForm, PostForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+
+
+
+
+# TEMP CAT DATA
+# posts = [
+#   Post('title1', 
+#   'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde.', 
+#   '2020-08-08', 'SF', 1 ),
+#   Post('title2', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. shell', '2020-08-08', 'NY',2),
+#   Post('title3', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis ut commodi nisi voluptate cum exercitationem harum reiciendis cupiditate recusandae unde. tripod', '2020-08-08', 'LA',3),
+# ]
+
 
 
 # Create your views here.
@@ -46,7 +59,8 @@ def signup (request):
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
-
+      profile_user = Profile.objects.create(user=user)
+      profile_user.save()
       return redirect('profile')
     else:
       return render(request, 'registration/signup.html', {'form': form, 'error': form.errors})
@@ -58,26 +72,34 @@ def signup (request):
 @login_required
 def profile (request): # this one should be edit profile?
   profile = Profile.objects.get(user=request.user)
-  city = profile.city.name
-  profile_form = ProfileForm(instance=profile)
+  print(profile)
+  city = profile.city
+  # city = City.objects.get(profile.city)
+
+  form = ProfileForm(instance=profile)
   context = {
     'profile': profile,
+    'form': form,
     'city': city,
-    'profile_form': profile_form,
-    'posts': posts,
-    # 'user': user
-    # 'first_name': first_name
   }
   return render(request, 'profile.html', context)
 
+@login_required
 def edit_profile(request):
   profile = Profile.objects.get(user=request.user)
-  form = ProfileForm(instance=profile)
-  print('______')
-  print(form)
-  context = {'profile': profile, 'form': form, }
-  return render(request, 'edit_profile.html', context)
-
+  cities = City.objects.all()
+  posts = Post.objects.all()
+  context = {'profile': profile, 'cities': cities, 'posts': posts}
+  if request.method == 'POST':
+    profile_form = ProfileForm(request.POST, instance=profile)
+    if profile_form.is_valid():
+      profile_form.save()
+      return redirect('edit_profile')
+    else:
+      return HttpResponse('invalid input, go back on your browser and try again')
+  else:
+    profile_form = ProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', context)
 
 
 # # @login_required

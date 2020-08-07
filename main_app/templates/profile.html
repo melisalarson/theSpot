@@ -10,11 +10,9 @@
 <div class="card">
   <div class="card-content">
     <form method="POST" action="{% url 'profile' %}">
-
       {% csrf_token %}
       <p> 
-        {{ profile.user.first_name }}
-        {{ profile.user.last_name }}
+        Name: {{profile.user.first_name}}
         <a href="{% url 'edit_profile' %}">edit</a>
       </p>
       <p>
@@ -24,6 +22,7 @@
       <p>
         Joined On: {{ profile.user.date_joined | timezone:'us/pacific' }} PST
       </p>
+      <br><br><br>
       <p>
         Profile Photo: {{ profile.profile_picture }}
         <a href="{% url 'edit_profile' %}">edit</a>

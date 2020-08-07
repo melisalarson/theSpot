@@ -12,14 +12,14 @@ class City(models.Model):
     return self.name
     
 class Profile(models.Model):
-  city = models.ForeignKey(City, on_delete=models.CASCADE)
+  # city = models.ForeignKey(City, on_delete=models.CASCADE)
+  profile_name: models.CharField(max_length=100)
+  city = models.CharField(max_length=100)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  # user = models.OneToOneField(User, on_delete=models.CASCADE) i found this in the lecture. looks like this needs to be one to one not foreign key
   profile_picture = models.FileField(upload_to='uploads/')
-  # profile_date = models.DateTimeField(auto_now_add=True)
 
-  def __str__(self):
-    return self.user
+  # def __str__(self):
+  #   return self.profile_name
 
 
 class Post(models.Model):
