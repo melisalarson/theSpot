@@ -9,27 +9,35 @@
 
 <div class="card">
   <div class="card-content">
-    <form method="POST" action="{% url 'profile' %}">
-      {% csrf_token %}
-      <p> 
-        Name: {{profile.user.first_name}}
-        <a href="{% url 'edit_profile' %}">edit</a>
-      </p>
-      <p>
-        City: {{ profile.city }}
-      <a href="{% url 'edit_profile' %}">edit</a>
-      </p>
-      <p>
-        Joined On: {{ profile.user.date_joined | timezone:'us/pacific' }} PST
-      </p>
-      <br><br><br>
-      <p>
-        Profile Photo: {{ profile.profile_picture }}
-        <a href="{% url 'edit_profile' %}">edit</a>
-      </p>
-      <p>Posts: {{ posts }}</p>
-      <button type="submit" name="update">Update</button>
-    </form>
+    <a href="{% url 'edit_profile' %}"><button>Update Details</button></a>
+    <br>
+    <br>
+    <p>Name: {{ profile.profile_name }}</p>
+    <p>City: {{ profile.city }}</p>
+    <p>Profile Picture: {{ profile.profile_picture }}</p>
+    <p>Join Date: {{ profile.user.date_joined }}</p>
+    <br>
+    <h5>POSTS</h5>
+      {% for post in posts %}
+      <div class="row">
+        <div class="posts">
+          <div class="post col s3">
+            <p>{{post.picture}}</p>
+          </div>
+          <div class="post col s9">
+            <a href="{% url 'post_index' post.id%}"><h6>{{post.title}}</h6></a>
+            <p>{{post.description}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+
+
+
+
+
+
 
   </div>
 </div>
