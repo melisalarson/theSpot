@@ -13,9 +13,10 @@
     <a href="{% url 'post_index' post.id %}">
       <span class="card-title">{{ post.title }}</span>
     </a>
+    
 
     <p>{{ post.description }}</p>
-    <p>{{ post.picutre }}</p>
+    <p>{{ post.picture }}</p>
     <p>{{ post.date }}</p>
     <p>{{ post.city }}</p>
     <p>{{ post.profile }}</p>
@@ -24,10 +25,10 @@
       <button class="btn2" type="submit" name="edit">Edit Post</button>
     </a>
     <br><br>
-    <a href="{% url 'delete_post' post.id %}">
-      <button class="btn2" type="submit" name="delete">Delete Post</button>
+    {% comment %} <a href="{% url 'delete_post' post.id %}"> {% endcomment %}
+      {% comment %} <button class="btn2" type="submit" name="delete">Delete Post</button> {% endcomment %}
     </a>
-
+<p>{{ post }}</p>
   </div>
 </div>
 {% endfor %}
