@@ -122,7 +122,7 @@ def signup (request):
 def profile (request):
   profile = Profile.objects.get(user=request.user)
   profile_form = ProfileForm(instance=profile)
-  posts = Post.objects.filter(profile=profile).order_by('-date')
+  posts = Post.objects.filter(profile=profile).order_by('date')
   context = {
     'profile': profile,
     'profile_form': profile_form,
