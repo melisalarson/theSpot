@@ -24,22 +24,23 @@
     <nav>
       <div class="nav-wrapper">
 
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
-        </ul>
+        
+          <label><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></label>
+      
         
           <ul class="unorderedlist active">
             <li><a class="closer" href="{% url 'cities' %}">Cities</a></li>
             <li><a class="closer" href="{% url 'posts' %}">Posts</a></li>
             {% if user.is_authenticated %}
               <li><a class="closer" href="{% url 'profile' %}">Profile</a></li>
-              <li><button class="btn3 closer" href="{% url 'logout' %}">Log Out</button></li>
+              <li><button class="btn3 closer"><a href="{% url 'logout' %}"> Log Out</a></button></li>
             {% else %}
               <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Sign Up</button></li>
               <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Login</button></li>
             {% endif %}
           </ul>
           
+          {% comment %}
           <!-- <select>
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
@@ -57,7 +58,7 @@
               {% endif %}
         </option>
         </select> -->
-
+        {% endcomment %}
       </div>
     </nav>
   </header>
@@ -149,13 +150,15 @@
     });
 
     // Create the dropdown base
-$("<select />").appendTo("nav");
+$("<select />").appendTo("nav", {
+  "class"   : "navigate",
+});
 
 // Create default option "Go to..."
 $("<option />", {
    "selected": "selected",
    "value"   : "",
-   "text"    : "Go to..."
+   "text"    : "Navigate"
 }).appendTo("nav select");
 
 // Populate dropdown with menu items
