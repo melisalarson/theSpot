@@ -28,7 +28,7 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
         </ul>
         
-          <ul class="unorderedlist">
+          <ul class="unorderedlist active">
             <li><a class="closer" href="{% url 'cities' %}">Cities</a></li>
             <li><a class="closer" href="{% url 'posts' %}">Posts</a></li>
             {% if user.is_authenticated %}
@@ -41,7 +41,10 @@
           </ul>
           
           <!-- <select>
-          <option value="" selected="selected"> Selected</option>
+        <ul>
+          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
+        </ul>
+          <option value="" selected="selected">Navigate</option>
             <option class="right">
               <option value="{% url 'cities' %}">Cities</option>
               <option value="{% url 'posts' %}">Posts</option>

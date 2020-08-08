@@ -15,6 +15,7 @@ body {
 }
 
 
+
 .unorderedlist {
   display: flex;
   justify-content: flex-end;
@@ -22,14 +23,21 @@ body {
 
 
 
- /* nav select {
+ nav select {
   display: none;
 }
 
 @media (max-width: 960px) {
   nav ul     { display: none; }
-  nav select { display: inline-block; }
-} */
+  nav select { 
+    display: inline-block; 
+    width: 100px; 
+  }
+  
+  .unorderedlist {
+    display: none;
+  }
+}
 
 .closer {
   padding-left: 3%;
