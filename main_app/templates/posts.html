@@ -45,6 +45,7 @@
     <a href="{% url 'post_index' post.id %}">
       <span class="card-title">{{ post.title }}</span>
     </a>
+    
 
     <p>{{ post.description }}</p>
     <p>{{ post.picture }}</p>
@@ -59,7 +60,7 @@
     <a class="btn2 modal-trigger" href="#modal-deletepost" class="modal modal-open">
       <button class="btn2" type="submit" name="delete">Delete Post</button>
     </a>
-
+<p>{{ post }}</p>
   </div>
 </div>
 {% endfor %}
