@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- DELETE POST Modal -->
+<div id="modal-deletepost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>Are you sure you want to delete {{post.title}}?</h3>
+    <a href="{% url 'delete_post' post.id%}"><button>Delete Post</button></a>
+    <br><br>
+    <a href="{% url 'post_index' post.id%}"><button>Never Mind</button></a>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
+</div>
+
+
+
+
+
 <h1>Post: {{ post.title }}</h1>
 <hr />
 
@@ -15,9 +33,22 @@
     <br>
     <p>{{ post.description }}</p>
 
+    {% if user.is_authenticated %}
+    <a href="{% url 'edit_post' post.id %}">
+      <button class="btn2" type="submit" name="edit">Edit Post</button>
+    </a>
+    <a class="btn2 modal-trigger" href="#modal-deletepost" class="modal modal-open">
+      <button class="btn2" type="submit" name="delete">Delete Post</button>
+    </a>
+    {% endif %}
+
   </div>
 </div>
 
 
-
+<script>
+  $(document).ready(function () {
+    $('select').not('.disabled').formSelect();
+  });
+</script>
 {% endblock %}

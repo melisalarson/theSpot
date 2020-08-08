@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
+<!-- DELETE POST Modal -->
+<div id="modal-deletepost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>Are you sure you want to delete #{title}?</h3>
+    <a href="#"></a><button>Delete Post</button>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
+</div>
+
+<!-- ADD POST Modal -->
+<div id="modal-newpost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>New Post</h3>
+    {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+    <form method="POST" action="{% url 'new_post' %}">
+      {% csrf_token %}
+      {{ post_form.as_p }}
+      <input type="submit" class="btn2" value="Add Post">
+    </form>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
+</div>
+
+
 
 <h1>all posts page</h1>
 <hr />
 
-<a href="{% url 'new_post' %}"><button class="btn2">Add Post</button></a>
+<a class="btn2 modal-trigger" href="#modal-newpost" class="modal modal-open">Add Post</a>
 
 {% for post in posts %}
 <div class="card">
@@ -25,13 +57,17 @@
       <button class="btn2" type="submit" name="edit">Edit Post</button>
     </a>
     <br><br>
-    {% comment %} <a href="{% url 'delete_post' post.id %}"> {% endcomment %}
-      {% comment %} <button class="btn2" type="submit" name="delete">Delete Post</button> {% endcomment %}
+    <a class="btn2 modal-trigger" href="#modal-deletepost" class="modal modal-open">
+      <button class="btn2" type="submit" name="delete">Delete Post</button>
     </a>
 <p>{{ post }}</p>
   </div>
 </div>
 {% endfor %}
 
-
+<script>
+  $(document).ready(function () {
+    $('select').not('.disabled').formSelect();
+  });
+</script>
 {% endblock %}
