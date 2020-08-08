@@ -13,7 +13,7 @@
     <br>
     <h6>Name: {{ profile.profile_name }}</h6>
     <h6>City: {{ profile.city }}</h6>
-    <h6>Profile Picture: <img src="{{ profile.profile_picture.url }}" style="width: 100px; height: 100px;"></h6>
+    <h6>Profile Picture: <img src="{{ profile.default_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;"></h6>
     <h6>Join Date: {{ profile.user.date_joined }}</h6>
     <br>
   </div>
