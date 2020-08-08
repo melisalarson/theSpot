@@ -2,33 +2,30 @@
 {% load static %}
 {% block content %}
 
-<!-- ADD NEW POST Modal -->
+<!-- ADD POST Modal -->
 <div id="modal-newpost" class="modal-open modal">
   <div class="modal-content">
-    
-    <h3>New Post</h3>
-    
-    {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
 
-    <form method="POST" action="{% url 'city_index' city.id %}">
+    <h3>New Post</h3>
+    {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+    <form method="POST" action="{% url 'new_post' %}">
       {% csrf_token %}
       {{ post_form.as_p }}
       <input type="submit" class="btn2" value="Add Post">
     </form>
-    
+
   </div>
   <!-- <div class="modal-footer">
     <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
-  </div>
 </div>
+
+
 
 <h1>City: {{ city.name }}, {{ city.country }}</h1>
 <hr />
 
-
-
 {% if user.is_authenticated %}
-  <a class="waves-effect waves-light btn2 modal-trigger" href="{% url 'new_post' %}" class="modal modal-open">Add New Post</a>
+  <a class="btn2 modal-trigger" href="#modal-newpost" class="modal modal-open">Add Post</a>
 {% endif %}
 
 <h5>POSTS</h5>
@@ -51,7 +48,10 @@
     </div>
   </div>
 </div>
+
 {% endfor %}
+
+
 
 <script>
   $(document).ready(function () {

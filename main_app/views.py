@@ -6,6 +6,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from datetime import date, timezone, datetime
+
 
 
 
@@ -26,13 +28,16 @@ def cities (request):
 def city_index (request, city_id):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
+  post_form = PostForm()
   city = City.objects.get(id=city_id)
   posts = Post.objects.filter(city=city).order_by('-date')
+  # print(posts.__dict__)
   context = {
     'city': city,
     'posts': posts,
     'signup_form' : signup_form,
     'form':form,
+    'post_form': post_form,
     }
   return render(request, 'city_index.html', context)
 
@@ -40,8 +45,8 @@ def posts (request):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   posts = Post.objects.all()
-  print(posts[0])
-  return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form})
+  post_form = PostForm()
+  return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form, 'post_form': post_form})
 
 def post_index (request, post_id):
   signup_form = UserCreationForm()
@@ -52,33 +57,54 @@ def post_index (request, post_id):
 
 @login_required
 def new_post(request):
+  profile = Profile.objects.get(user=request.user)
   if request.method == 'POST':
     post_form = PostForm(request.POST)
-    post_form.profile = Profile.objects.get(user=request.user)
     if post_form.is_valid():
-      new_post = post_form.save(commit=false)
+      new_post = post_form.save(commit=False)
+      new_post.profile_id = profile.id
       new_post.save()
-      return redirect('cities', post.id)
+      return redirect('city_index', new_post.city_id)
+      # if:
+      #   return redirect('city_index', new_post.city_id)
+      # else:  
+      #   return redirect('posts')
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     post_form = PostForm()
+    # post_form.profile = Profile.objects.get(user=request.user)
     return render(request, 'new_post.html', {'post_form': post_form,})
 
 @login_required
 def edit_post(request, post_id):
   # profile = Profile.objects.get(user=request.user)
   post = Post.objects.get(id=post_id)
+  print(post.__dict__)
   if request.method == 'POST':
     edit_form = PostForm(request.POST, instance=post)
-    if form.is_valid():
-      post = edit_form.save()
-      return redirect('cities', post_id)
+    if edit_form.is_valid():
+      print('******')
+      edited_post = edit_form.save()
+      # edited_post.profile_id = profile.id
+      # edited_post.save()
+      return redirect('city_index', post.city_id)
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     edit_form = PostForm(instance=post)
-    return render(request, 'edit_post.html', {'edit_form': edit_form})
+    return render(request, 'edit_post.html', {'edit_form': edit_form, 'post' : post})
+
+@login_required
+def delete_post(request, post_id):
+  post = Post.objects.get(id=post_id)
+  city_id = post.city_id
+  post.delete()
+  return redirect('city_index', city_id)
+
+
+
+
 
 def upload(request, context):
   if request.method == 'POST':
@@ -93,8 +119,7 @@ def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  print(city)
-  picture = 'media/default_pic.png'
+  picture = 'media/default_picture.png'
   context = {
     'form': form,
     'error': error,
