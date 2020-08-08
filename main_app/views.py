@@ -31,6 +31,7 @@ def city_index (request, city_id):
   post_form = PostForm()
   city = City.objects.get(id=city_id)
   posts = Post.objects.filter(city=city).order_by('-date')
+  # print(posts.__dict__)
   context = {
     'city': city,
     'posts': posts,
@@ -96,8 +97,10 @@ def edit_post(request, post_id):
 
 @login_required
 def delete_post(request, post_id):
-  Post.objects.get(id=post_id).delete()
-  return redirect('posts')
+  post = Post.objects.get(id=post_id)
+  city_id = post.city_id
+  post.delete()
+  return redirect('city_index', city_id)
 
 
 
@@ -120,7 +123,6 @@ def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  print(city)
   picture = 'media/defaul profile pic.png'
   context = {
     'form': form,

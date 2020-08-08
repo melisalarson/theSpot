@@ -1,20 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- EDIT Modal -->
+<div id="modal-editpost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>Edit Post</h3>
+    {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+    <form method="POST" action="{% url 'new_post' %}">
+      {% csrf_token %}
+      {{ post_form.as_p }}
+      <input type="submit" class="btn2" value="Add Post">
+    </form>
+
+  </div>
+  <!-- <div class="modal-footer">
+    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
+</div>
+
+
+
 <h1>Edit Post</h1>
 
-<form method="POST" action="{% url 'edit_post' post.id %}">
-  {% csrf_token %}
-  {{ edit_form.as_p }}
-  <br>
-  <input type="submit" class="btn2" value="Confirm Edit">
-</form>
+<div class="card">
+  <div class="card-content">
 
-  <!-- jquery/metrialize cript for modals -->
-  <script>
-    const citySelectEl = document.getElementById("id_city");
-    M.FormSelect.init(citySelectEl);
-    const userSelectEl = document.getElementById("id_profile");
-    M.FormSelect.init(userSelectEl);
-  </script>
+    <form method="POST" action="{% url 'edit_post' post.id %}">
+      {% csrf_token %}
+      {{ edit_form.as_p }}
+      <br>
+      <input type="submit" class="btn2" value="Confirm Edit">
+    </form>
+
+      <!-- jquery/metrialize cript for modals -->
+      <script>
+        const citySelectEl = document.getElementById("id_city");
+        M.FormSelect.init(citySelectEl);
+        const userSelectEl = document.getElementById("id_profile");
+        M.FormSelect.init(userSelectEl);
+      </script>
+
+  </div>
+</div>
 {% endblock %}
