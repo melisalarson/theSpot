@@ -46,8 +46,12 @@ body {
 }
 
 .nav-wrapper {
-  background-color: rgba(115, 210, 248, 0.897);
+  /* background-color: rgba(115, 210, 248, 0.897); */
+  /* background-color: rgba(154,203,255,0.897); */
+  background-color: rgb(154,203,255);
 } 
+
+
 
 .worldmap {
   height: 100%;
@@ -67,7 +71,7 @@ body {
   padding: 2px 4px;
   border: solid rgba(115, 212, 250, 0.897);
   font-size: 16px;
-  border-radius: 30%;
+  border-radius: 50%;
 }
 
 .btn2:hover {

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
+
 
 <!-- ADD POST Modal -->
 <div id="modal-newpost" class="modal-open modal">
@@ -15,41 +15,117 @@
     </form>
 
   </div>
+</div>
+<!-- DELETE POST Modal -->
+<div id="modal-deletepost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>Are you sure you want to delete #{title}?</h3>
+    <a href="#"></a><button>Delete Post</button>
+
+  </div>
   <!-- <div class="modal-footer">
     <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
 </div>
 
 
+<br><br><br><br><br><br><br><br><br><br>
 
-<h1>City: {{ city.name }}, {{ city.country }}</h1>
-<hr />
 
-{% if user.is_authenticated %}
-  <a class="btn2 modal-trigger" href="#modal-newpost" class="modal modal-open">Add Post</a>
-{% endif %}
 
-<h5>POSTS</h5>
+<div class="row">
+  <!-- ************************* ROW 1 ************************* -->
 
-{% for post in posts %}
-<div class="card">
-  <div class="card-content">
-    <div class="row">
-      <div class="posts">
-        <div class="post col s3">
-          <p><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;"></p>
-        </div>
-        <div class="post col s9">
-          <a href="{% url 'post_index' post.id%}">
-            <h6>{{post.title}}</h6>
-          </a>
-          <p>{{post.description}}</p>
-        </div>
+
+
+  <div class="all_info col s4">
+    <!-- ************************* COLUMN A ************************* -->
+    <div class="card">
+      <div class="card-content">
+        <h4>Cities:</h4>
+        <!-- -------------------- CITIES -------------------- -->
+        <section class="cities-sections">
+
+          {% for city in cities %}
+          <div class="card">
+            <div class="card-content">
+              <div class="row">
+
+                <div class="city col s3">
+                  <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+                </div>
+
+                <div class="city col s9">
+                  <a href="{% url 'city_index' city.id %}">
+                    <span class="card-title">{{ city.name }}, {{ city.country }}</span>
+                  </a>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="all_info col s8">
+    <!-- ************************* COLUMN B ************************* -->
+
+
+    <div class="featured_city row card">
+
+      <div class="post col s3">
+        <a href="{{ city.id }}">
+          <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
+        </a>
+      </div>
+
+      <div class="post col s9">
+        <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <!-- -------------------- POSTS -------------------- -->
+        <section class="posts-sections">
+          <!-- -------------------- FEATURED CITY -------------------- -->
+          <h4>Posts:</h4>
+
+          <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons">+</i></a>
+
+          <div class="featured_posts row">
+            {% for post in posts %}
+            <div class="card">
+              <div class="card-content">
+                <div class="row">
+
+                  <div class="post col s3">
+                    <a href="{% url 'profile' %}"><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;">
+                    </a>
+                  </div>
+
+                  <div class="post col s9">
+                    <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
+                    <p>{{ post.description }}</p>
+                    <br>
+                    <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span
+                        class="published_date">{{ post.date }}</span></p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </section>
       </div>
     </div>
   </div>
 </div>
-
-{% endfor %}
 
 
 
@@ -58,4 +134,5 @@
     $('select').not('.disabled').formSelect();
   });
 </script>
+
 {% endblock %}

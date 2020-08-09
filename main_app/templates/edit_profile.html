@@ -2,9 +2,8 @@
 {% load tz %}
 {% block content %}
 
-<h1>Profile Page</h1>
+<h3>Edit Profile Page</h3>
 <hr />
-<p>this is the profile page</p>
 
 
 <div class="card">
@@ -12,8 +11,6 @@
     <form method="POST" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
       {% csrf_token %}
       {{ profile_form.as_p }}
-      {{ user.first_name }}
-      {{ city.name }}
       
 
       <br><br>

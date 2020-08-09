@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% comment %}
 <!-- DELETE POST Modal -->
 <div id="modal-deletepost" class="modal-open modal">
   <div class="modal-content">
@@ -45,9 +45,8 @@
       <span class="card-title">{{ post.title }}</span>
     </a>
     
-
     <p>{{ post.description }}</p>
-    <p><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;"></p>
+    <p><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100%; height: 100%;"></p>
     <p>{{ post.date }}</p>
     <p>{{ post.city }}</p>
     <p>{{ post.profile }}</p>
@@ -59,7 +58,8 @@
     <a class="btn2 modal-trigger" href="#modal-deletepost" class="modal modal-open">
       <button class="btn2" type="submit" name="delete">Delete Post</button>
     </a>
-<p>{{ post }}</p>
+
+    <p>{{ post }}</p>
   </div>
 </div>
 {% endfor %}
@@ -69,4 +69,5 @@
     $('select').not('.disabled').formSelect();
   });
 </script>
+{% endcomment %}
 {% endblock %}
