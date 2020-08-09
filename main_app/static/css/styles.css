@@ -28,11 +28,12 @@ body {
 }
 
 @media (max-width: 960px) {
-  nav ul     { display: none; }
-  nav select { 
+  .nav ul     { display: none; };
+  .nav select { 
     display: inline-block;
   }
-
+  /* .not-mobile { display: none};
+  .mobile { display: flex}; */
 }
 
 .closer {
@@ -160,7 +161,7 @@ footer {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  color: #000
+  color: #000;
 }
 
 /* Modal Content */

@@ -104,10 +104,15 @@ def edit_post(request, post_id):
     edit_form = PostForm(request.POST, request.FILES, instance=post)
     if edit_form.is_valid():
       print('******')
+      # date = Post.objects.filter(city=city).order_by('-date')
       edited_post = edit_form.save()
       # edited_post.profile_id = profile.id
       # edited_post.save()
       return redirect('post_index', post_id)
+      # if :
+      #   return redirect('profile')
+      # else:
+      #   return redirect('city_index', edited_post.city_id)
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:

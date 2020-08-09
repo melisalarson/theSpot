@@ -29,9 +29,6 @@
 </div>
 
 
-<br><br><br><br><br><br><br><br><br><br>
-
-
 
 <div class="row"> <!-- ************************* ROW 1 ************************* -->
 
@@ -87,15 +84,16 @@
 
 <div class="card">
   <div class="card-content">
+    <div class="row">
+      <p style="font-size: 30px" class="left">Posts:</p>
+    
+      <a class="right btn-floating waves-effect waves-light red modal-trigger" href="#modal-newpost"
+        class="modal modal-open "><i class="material-icons">add</i></a>
+    </div>
     <!-- -------------------- POSTS -------------------- -->
     <section class="posts-sections">
       <!-- -------------------- FEATURED CITY -------------------- -->      
-      <h4>Posts:</h4>
-
-      <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal-newpost" class="modal modal-open"><i class="material-icons">+</i></a>
-
-      
-      
+            
       <div class="featured_posts row">
         {% for post in posts %}
         <div class="card">
@@ -116,8 +114,8 @@
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </section>
     </div>
   </div>
