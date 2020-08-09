@@ -59,7 +59,7 @@ def post_index (request, post_id):
 def new_post(request):
   profile = Profile.objects.get(user=request.user)
   if request.method == 'POST':
-    post_form = PostForm(request.POST)
+    post_form = PostForm(request.POST, request.FILES)
     if post_form.is_valid():
       new_post = post_form.save(commit=False)
       new_post.profile_id = profile.id
@@ -82,7 +82,7 @@ def edit_post(request, post_id):
   post = Post.objects.get(id=post_id)
   print(post.__dict__)
   if request.method == 'POST':
-    edit_form = PostForm(request.POST, instance=post)
+    edit_form = PostForm(request.POST, request.FILES, instance=post)
     if edit_form.is_valid():
       print('******')
       edited_post = edit_form.save()
@@ -112,8 +112,8 @@ def upload(request, context):
     fs = FileSystemStorage()
     name = fs.save(uploaded_file.name, uploaded_file)
     context['url'] = fs.url(name)
-    print(profile.default_picture)
-  return render(request, 'profile.html', context)
+    print(profile.upload_picture)
+  return render(request, 'profile.html', 'posts.html', 'cities.html', context)
 
 def signup (request):
   error = ''
@@ -126,11 +126,11 @@ def signup (request):
     'city': city,
   }
   if request.method == 'POST':
-    form = UserCreationForm(request.POST)
+    form = UserCreationForm(request.POST, request.FILES)
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
-      profile_user = Profile(user=user, profile_name=user.username, city=city, profile_picture=picture)
+      profile_user = Profile(user=user, profile_name=user.username, city=city, upload_picture=picture)
       profile_user.save()
       return redirect('profile')
     else:
@@ -149,7 +149,7 @@ def profile (request):
     'profile_form': profile_form,
     'posts': posts,
   }
-  print(profile.default_picture)
+  print(profile.upload_picture)
   return render(request, 'profile.html', context)
 
 @login_required
@@ -164,7 +164,7 @@ def edit_profile(request):
       profile_form.save()
       context['profile_form'] = profile_form
       context['city'] = profile.city
-      print(profile.default_picture)
+      print(profile.upload_picture)
       # return redirect('upload', context)
       return redirect('profile')
     else:
