@@ -59,6 +59,28 @@ def city_index (request, city_id):
   # return redirect('cities')
 
 
+def city_index2 (request, city_id):
+  city = City.objects.all().first()
+  signup_form = UserCreationForm()
+  form = AuthenticationForm()
+  post_form = PostForm()
+  cities = City.objects.all()
+  city = City.objects.get(id=city_id)
+  posts = Post.objects.filter(city=city).order_by('-date')
+  # print(posts.__dict__)
+  context = {
+    'signup_form' : signup_form,
+    'form':form,
+    'post_form': post_form,
+    'cities':cities,
+    'city': city,
+    'posts': posts,
+    }
+  return render(request, '2city_index.html', context)
+  # return redirect('city_index', city.id)
+  # return redirect('cities')
+
+
 def posts (request):
   pass
 #   signup_form = UserCreationForm()
@@ -87,7 +109,7 @@ def new_post(request):
       # if:
       #   return redirect('city_index', new_post.city_id)
       # else:  
-      #   return redirect('posts')
+      #   return redirect('city_index2', new_post.city_id')
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:

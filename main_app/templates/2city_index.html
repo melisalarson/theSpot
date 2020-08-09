@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ADD POST Modal -->
+<div id="modal-newpost" class="modal-open modal">
+  <div class="modal-content">
+
+    <h3>New Post</h3>
+    {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+    <form method="POST" action="{% url 'new_post' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ post_form.as_p }}
+      <input type="submit" class="btn2" value="Add Post">
+    </form>
+
+  </div>
+</div>
+
+
+
+<h3>{{ city.name }}, {{ city.country }}</h3>
+<hr />
+
+<div class="row">
+
+  <div class=" left post col s5">
+    <p style="font-size: 20px" class="left">Posts:</p>
+  </div>
+
+  <div class="right post col s5">
+      {% if user.is_authenticated %}
+      <a class="right btn-floating waves-effect waves-light red modal-trigger" href="#modal-newpost"
+        class="modal modal-open "><i class="material-icons">add</i></a>
+      {% endif %}
+  </div>
+
+</div>
+
+
+{% for post in posts %}
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <div class="posts">
+        <div class="post col s3">
+          <a href="{% url 'profile' %}"><img class="circle responsive-img" src="{{ post.profile.upload_picture.url }}"
+              style="width: 100px; height: 100px;"></a>
+        </div>
+        <div class="post col s9">
+          <a href="{% url 'post_index' post.id%}">
+            <h6>{{post.title}}</h6>
+          </a>
+          <p>{{post.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+<script>
+  $(document).ready(function () {
+    $('select').not('.disabled').formSelect();
+  });
+</script>
+{% endblock %}

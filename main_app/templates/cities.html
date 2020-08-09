@@ -72,7 +72,7 @@
     <div class="featured_city row card">
 
       <div class="post col s3">
-        <a href="{{ city.id }}">
+        <a href="{% url 'city_index2' city.id %}">
           <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
         </a>
       </div>
