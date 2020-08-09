@@ -87,7 +87,7 @@
     <div class="row">
       <p style="font-size: 30px" class="left">Posts:</p>
     
-      <a class="right btn-floating waves-effect waves-light red modal-trigger" href="#modal-newpost"
+      <a class="right btn-floating modal-trigger" href="#modal-newpost"
         class="modal modal-open "><i class="material-icons">add</i></a>
     </div>
     <!-- -------------------- POSTS -------------------- -->
@@ -101,7 +101,7 @@
             <div class="row">
 
               <div class="post col s3">
-                <a href="{% url 'profile' %}"><img class="circle responsive-img" src="{{ post.profile.upload_picture.url }}" style="width: 100px; height: 100px;"></a>
+                <img class="circle responsive-img" src="{{ post.profile.upload_picture.url }}" style="width: 100px; height: 100px;">
               </div>
 
               <div class="post col s9">

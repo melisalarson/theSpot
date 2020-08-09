@@ -25,6 +25,7 @@ def cities (request):
   cities = City.objects.all()
   city = City.objects.all().first()
   posts = Post.objects.filter(city=city).order_by('-date')
+  posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
     'form':form,
@@ -32,6 +33,7 @@ def cities (request):
     'cities': cities,
     'city': city,
     'posts': posts,
+    'posts_length': posts_length,
     }
   return render(request, 'cities.html', context)
   # return redirect('city_index', city.id)
@@ -45,7 +47,7 @@ def city_index (request, city_id):
   cities = City.objects.all()
   city = City.objects.get(id=city_id)
   posts = Post.objects.filter(city=city).order_by('-date')
-  # print(posts.__dict__)
+  posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
     'form':form,
@@ -53,6 +55,7 @@ def city_index (request, city_id):
     'cities':cities,
     'city': city,
     'posts': posts,
+    'posts_length': posts_length,
     }
   return render(request, 'city_index.html', context)
   # return redirect('city_index', city.id)
