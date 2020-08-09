@@ -11,19 +11,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='profile',
-            old_name='default_picture',
-            new_name='upload_picture',
-        ),
         migrations.AddField(
             model_name='city',
             name='upload_picture',
-            field=models.ImageField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(base_url='/media/uploads/', location='/Users/briansanchez/sei/unit-3/projects/theSpot/media/uploads/'), upload_to='uploads/'),
+            field=models.ImageField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(base_url='/media/uploads/', location='/Users/larson/sei/projects/projectwayfarer/theSpot/media/uploads/'), upload_to='uploads/'),
         ),
         migrations.AddField(
             model_name='post',
             name='upload_picture',
-            field=models.ImageField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(base_url='/media/uploads/', location='/Users/briansanchez/sei/unit-3/projects/theSpot/media/uploads/'), upload_to='uploads/'),
+            field=models.ImageField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(base_url='/media/uploads/', location='/Users/larson/sei/projects/projectwayfarer/theSpot/media/uploads/'), upload_to='uploads/'),
         ),
     ]

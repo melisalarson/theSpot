@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='profile',
-            name='default_picture',
+            name='upload_picture',
             field=models.ImageField(blank=True, null=True, storage=django.core.files.storage.FileSystemStorage(base_url='/media/uploads/', location='/Users/briansanchez/sei/unit-3/projects/theSpot/media/uploads/'), upload_to='uploads/'),
         ),
     ]

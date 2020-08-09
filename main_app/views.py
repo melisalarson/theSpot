@@ -107,7 +107,7 @@ def edit_post(request, post_id):
       edited_post = edit_form.save()
       # edited_post.profile_id = profile.id
       # edited_post.save()
-      return redirect('city_index', post.city_id)
+      return redirect('post_index', post_id)
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:

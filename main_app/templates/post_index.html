@@ -19,7 +19,7 @@
 
 
 
-<h1>Post: {{ post.title }}</h1>
+<h3>{{ post.title }}</h3>
 <hr />
 
 
@@ -28,11 +28,10 @@
 <div class="card">
   <div class="card-content">
 
-    <h5>{{ post.title }}</h5>
+    <p>{{ post.description }}</p>
+    <br>
     <p>Written By: {{ post.profile }} on {{ post.date }}</p>
     <br>
-    <p>{{ post.description }}</p>
-
     {% if user.id == post.profile.id %}
     <a href="{% url 'edit_post' post.id %}">
       <button class="btn2" type="submit" name="edit">Edit Post</button>
