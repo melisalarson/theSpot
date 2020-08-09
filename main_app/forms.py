@@ -5,7 +5,7 @@ class ProfileForm (forms.ModelForm):
   class Meta:
     model = Profile
     # fields = '__all__'
-    fields = ['profile_name', 'city', 'default_picture']
+    fields = ['profile_name', 'city', 'upload_picture']
 
 class UserForm (forms.ModelForm):
   class Meta:
@@ -23,4 +23,4 @@ class PostForm (forms.ModelForm):
   class Meta:
     model = Post
     # fields = '__all__'
-    fields = ['title', 'description', 'city',] #need to add 'picture' back in
+    fields = ['title', 'description', 'city', 'upload_picture'] #need to add 'picture' back in
