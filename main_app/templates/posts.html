@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
 {% comment %}
 <!-- DELETE POST Modal -->
@@ -20,7 +19,7 @@
 
     <h3>New Post</h3>
     {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
-    <form method="POST" action="{% url 'new_post' %}">
+    <form method="POST" action="{% url 'new_post' %}" enctype="multipart/form-data">
       {% csrf_token %}
       {{ post_form.as_p }}
       <input type="submit" class="btn2" value="Add Post">
@@ -47,7 +46,7 @@
     </a>
     
     <p>{{ post.description }}</p>
-    <p>{{ post.picture }}</p>
+    <p><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;"></p>
     <p>{{ post.date }}</p>
     <p>{{ post.city }}</p>
     <p>{{ post.profile }}</p>

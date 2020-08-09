@@ -22,7 +22,8 @@ def image_directory_path(instance, filename):
 class City(models.Model):
   name = models.CharField(max_length=100)
   country = models.CharField(max_length=150)
-  picture = models.FileField(upload_to='uploads/')
+  # picture = models.FileField(upload_to='uploads/')
+  upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
       
   def __str__(self):
     return self.name
@@ -32,15 +33,16 @@ class Profile(models.Model):
   profile_name = models.CharField(max_length=100)
   # city = models.CharField(max_length=100)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  profile_picture = models.FileField(upload_to='uploads/')
-  default_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
+  # profile_picture = models.FileField(upload_to='uploads/')
+  upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
   def __str__(self):
     return self.profile_name
 
 class Post(models.Model):
   title = models.CharField(max_length=100)
   description = models.TextField(max_length=500)
-  picture = models.FileField(upload_to='uploads/')
+  # picture = models.FileField(upload_to='uploads/')
+  upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
   date = models.DateField(auto_now=True)
   city = models.ForeignKey(City, on_delete=models.CASCADE)
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
