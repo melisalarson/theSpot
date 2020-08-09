@@ -50,8 +50,12 @@ body {
 }
 
 .nav-wrapper {
-  background-color: rgba(115, 210, 248, 0.897);
+  /* background-color: rgba(115, 210, 248, 0.897); */
+  /* background-color: rgba(154,203,255,0.897); */
+  background-color: rgb(154,203,255);
 } 
+
+
 
 .worldmap {
   height: 100%;

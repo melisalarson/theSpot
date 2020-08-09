@@ -21,32 +21,51 @@ def home (request):
 def cities (request):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
+  post_form = PostForm()
   cities = City.objects.all()
-  print(cities[0].__dict__)
-  return render(request, 'cities.html', {'cities': cities, 'signup_form' : signup_form, 'form':form})
+  city = City.objects.all().first()
+  posts = Post.objects.filter(city=city).order_by('-date')
+  context = {
+    'signup_form' : signup_form,
+    'form':form,
+    'post_form': post_form,
+    'cities': cities,
+    'city': city,
+    'posts': posts,
+    }
+  return render(request, 'cities.html', context)
+  # return redirect('city_index', city.id)
+
   
 def city_index (request, city_id):
+  city = City.objects.all().first()
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
+  cities = City.objects.all()
   city = City.objects.get(id=city_id)
   posts = Post.objects.filter(city=city).order_by('-date')
   # print(posts.__dict__)
   context = {
-    'city': city,
-    'posts': posts,
     'signup_form' : signup_form,
     'form':form,
     'post_form': post_form,
+    'cities':cities,
+    'city': city,
+    'posts': posts,
     }
   return render(request, 'city_index.html', context)
+  # return redirect('city_index', city.id)
+  # return redirect('cities')
+
 
 def posts (request):
-  signup_form = UserCreationForm()
-  form = AuthenticationForm()
-  posts = Post.objects.all()
-  post_form = PostForm()
-  return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form, 'post_form': post_form})
+  pass
+#   signup_form = UserCreationForm()
+#   form = AuthenticationForm()
+#   posts = Post.objects.all()
+#   post_form = PostForm()
+#   return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form, 'post_form': post_form})
 
 def post_index (request, post_id):
   signup_form = UserCreationForm()

@@ -33,7 +33,7 @@
     <br>
     <p>{{ post.description }}</p>
 
-    {% if user.is_authenticated %}
+    {% if user.id == post.profile.id %}
     <a href="{% url 'edit_post' post.id %}">
       <button class="btn2" type="submit" name="edit">Edit Post</button>
     </a>
