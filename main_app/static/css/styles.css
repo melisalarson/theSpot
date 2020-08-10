@@ -19,8 +19,8 @@ body {
 }
 
 #city_high {
-  width: 67px;
-  height: 72px;
+  width: 650px;
+  height: 430px;
 }
 
 .unorderedlist {
@@ -84,6 +84,7 @@ body {
 
 .city {
   text-align: center;
+  widows: 650px;
 }
 
 .worldmap {
