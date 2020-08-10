@@ -50,7 +50,6 @@ body {
 
 
 .all_info {
-  text-align: center;
   width: 100%;
 }
 
@@ -67,14 +66,11 @@ body {
 }
 
 .post {
-  display: flex;
-  align-items: center;
+  text-align: center;
   width: 100%;
 }
 
 .city {
-  position: relative;
-  left: -10px;
   text-align: center;
 }
 

@@ -141,6 +141,11 @@
 
     <div class="card city_card2">
       <div class="card-content">
+        <div class="city">
+          <a href="{{ city.id }}"> 
+            <span class="card-title">{{ city.name }}, {{ city.country }}</span>
+          </a>
+        </div>
         <div class="row" style="display: flex; justify-content: space-around;">
 
             <div class="city">
@@ -149,14 +154,9 @@
 
 
 
-            <div class="city">
-              <a href="{{ city.id }}"> 
-                <span class="card-title">{{ city.name }}, {{ city.country }}</span>
-              </a>
-            </div>
-        
-
-        </div>
+            
+            
+          </div>
       </div>
     </div>
     {% endfor %}
@@ -172,7 +172,7 @@
 
       <div class="post">
         <a href="{% url 'city_index2' city.id %}">
-          <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
+          <span class="card-title">{{ city.name }}, <br> {{ city.country }}</span>
         </a>
       </div>
       
