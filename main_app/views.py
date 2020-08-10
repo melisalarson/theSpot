@@ -7,8 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from datetime import date, timezone, datetime
-
-
+from django.utils import formats
 
 
 # Create your views here.
@@ -18,13 +17,14 @@ def home (request):
   form = AuthenticationForm()
   return render(request, 'home.html', {'signup_form' : signup_form, 'form':form})
 
+# ----------------------------------- CITIES
 def cities (request):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.all().first()
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -36,17 +36,16 @@ def cities (request):
     'posts_length': posts_length,
     }
   return render(request, 'cities.html', context)
-  # return redirect('city_index', city.id)
 
-  
+
 def city_index (request, city_id):
   city = City.objects.all().first()
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -58,8 +57,6 @@ def city_index (request, city_id):
     'posts_length': posts_length,
     }
   return render(request, 'city_index.html', context)
-  # return redirect('city_index', city.id)
-  # return redirect('cities')
 
 
 def city_index2 (request, city_id):
@@ -69,7 +66,7 @@ def city_index2 (request, city_id):
   post_form = PostForm()
   cities = City.objects.all()
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   # print(posts.__dict__)
   context = {
     'signup_form' : signup_form,
@@ -80,24 +77,16 @@ def city_index2 (request, city_id):
     'posts': posts,
     }
   return render(request, '2city_index.html', context)
-  # return redirect('city_index', city.id)
-  # return redirect('cities')
 
 
-def posts (request):
-  pass
-#   signup_form = UserCreationForm()
-#   form = AuthenticationForm()
-#   posts = Post.objects.all()
-#   post_form = PostForm()
-#   return render(request, 'posts.html', {'posts': posts, 'signup_form' : signup_form, 'form':form, 'post_form': post_form})
-
+# ----------------------------------- POSTS
 def post_index (request, post_id):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post = Post.objects.get(id=post_id)
   print(post)
   return render(request, 'post_index.html', {'post': post, 'signup_form': signup_form, 'form':form})
+
 
 @login_required
 def new_post(request):
@@ -117,22 +106,18 @@ def new_post(request):
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     post_form = PostForm()
-    # post_form.profile = Profile.objects.get(user=request.user)
     return render(request, 'new_post.html', {'post_form': post_form,})
+
 
 @login_required
 def edit_post(request, post_id):
-  # profile = Profile.objects.get(user=request.user)
   post = Post.objects.get(id=post_id)
   print(post.__dict__)
   if request.method == 'POST':
     edit_form = PostForm(request.POST, request.FILES, instance=post)
     if edit_form.is_valid():
       print('******')
-      # date = Post.objects.filter(city=city).order_by('-date')
       edited_post = edit_form.save()
-      # edited_post.profile_id = profile.id
-      # edited_post.save()
       return redirect('post_index', post_id)
       # if :
       #   return redirect('profile')
@@ -144,6 +129,7 @@ def edit_post(request, post_id):
     edit_form = PostForm(instance=post)
     return render(request, 'edit_post.html', {'edit_form': edit_form, 'post' : post})
 
+
 @login_required
 def delete_post(request, post_id):
   post = Post.objects.get(id=post_id)
@@ -152,9 +138,7 @@ def delete_post(request, post_id):
   return redirect('city_index', city_id)
 
 
-
-
-
+# ----------------------------------- UPLOAD
 def upload(request, context):
   if request.method == 'POST':
     uploaded_file = request.FILES['document']
@@ -164,11 +148,12 @@ def upload(request, context):
     print(profile.upload_picture)
   return render(request, 'profile.html', 'posts.html', 'cities.html', context)
 
+
+# ----------------------------------- SIGNUP
 def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  # picture = 'uploads/default_picture.png'
   context = {
     'form': form,
     'error': error,
@@ -188,24 +173,27 @@ def signup (request):
     return render(request, 'registration/signup.html', context)
 
 
+# ----------------------------------- PROFILE
 @login_required
 def profile (request):
   profile = Profile.objects.get(user=request.user)
+  profile.date_joined = datetime.now()
+  formatted_datetime = formats.date_format(profile.date_joined, "DATE_FORMAT")
   profile_form = ProfileForm(instance=profile)
-  posts = Post.objects.filter(profile=profile).order_by('date')
+  posts = Post.objects.filter(profile=profile).order_by('-date')
   context = {
     'profile': profile,
     'profile_form': profile_form,
     'posts': posts,
+    'formatted_datetime': formatted_datetime,
   }
   print(profile.upload_picture)
   return render(request, 'profile.html', context)
 
+
 @login_required
 def edit_profile(request):
   profile = Profile.objects.get(user=request.user)
-  # cities = City.objects.all()
-  # posts = Post.objects.all()
   context = {'profile': profile}
   if request.method == 'POST':
     profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -214,55 +202,10 @@ def edit_profile(request):
       context['profile_form'] = profile_form
       context['city'] = profile.city
       print(profile.upload_picture)
-      # return redirect('upload', context)
       return redirect('profile')
     else:
       return HttpResponse('invalid input, go back on your browser and try again')
   else:
     profile_form = ProfileForm(instance=profile)
     context['profile_form'] = profile_form
-    # context['city'] = profile.city
-    # return redirect('upload', context)
     return render(request, 'edit_profile.html', context)
-
-
-# # @login_required
-# # def profile (request): # this one should be edit profile?
-#   # profile = Profile.objects.get(user=request.user)
-#   # profile = Profile.objects.all()
-#   profile = Profile.objects.get(user=request.user)
-#   # user = profile.user
-#   # users = User.objects.filter(city_id=User['city_id'])
-  
-#   # first_name = Profile.objects.get(user=request.user).first_name
-#   # print(users)
-#   # posts = Post.objects.get(profile)
-#   # post = posts.title
-#   city = profile.city.name
-#   # city = City.objects.get(profile.city_id)
-#   # join_date = User.objects.get(request.date_joined)
-#   # user = User.objects.get(id=user_id)
-#   print('**************this is profile')
-#   # print(profile)
-#   # print(city)
-#   # print(posts)
-
-#   profile_form = ProfileForm(instance=profile)
-
-#   print('**************this is form')
-#   # print(profile_form)
-#   context = {
-#     'profile': profile,
-#     'city': city,
-#     'profile_form': profile_form,
-#     'posts': posts,
-#     # 'user': user
-#     # 'first_name': first_name
-#   }
-#   return render(request, 'profile.html', context)
-
-# @login_required
-# def posts_index(request):
-#   posts = Post.objects.filter(user=request.user)
-#   return render(request, 'posts/index.html', { 'posts': posts })
-

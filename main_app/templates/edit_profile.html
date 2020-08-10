@@ -2,30 +2,33 @@
 {% load tz %}
 {% block content %}
 
-<h3>Edit Profile Page</h3>
+<h4 class="page-subheader">Edit Profile</h4>
 <hr />
 
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <form method="POST" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_form.as_p }}
+        
 
-<div class="card">
-  <div class="card-content">
-    <form method="POST" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ profile_form.as_p }}
-      
+        <br><br>
 
-      <br><br>
+        <button class="btn2" type="submit" name="Update">Update</button>
+        
+      </form>
 
-      <button class="btn2" type="submit" name="update">Update</button>
-    </form>
-
+    </div>
   </div>
 </div>
-
 <!-- using materialize to edit drop downs -->
 <script>
   $(document).ready(function () {
       $('select').not('.disabled').formSelect();
     });
+  const pictureCheckboxEl = document.getElementById("upload_picture-clear_id");
+  M.FormInputCheckBoxes.init(pictureCheckboxEl);
 </script>
 
 {% endblock %}

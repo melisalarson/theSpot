@@ -41,7 +41,7 @@ body {
 }
 
 @media (max-width: 960px) {
-  .nav ul     { display: none; };
+  .nav ul     { display: none; }
   .nav select { 
     display: inline-block;
   }
@@ -247,7 +247,15 @@ body {
   cursor: pointer;
 }
 
+/* here i accepted both changes */
+.page-subheader {
+  text-align: center;}
 .featured_city {
   padding-top: 10px;
   padding-bottom: 5px;
+}
+
+.errorlist > li {
+  color: red;
+  font-size: 30px;
 }
