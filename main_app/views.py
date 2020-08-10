@@ -153,7 +153,7 @@ def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  picture = 'media/default_picture.png'
+  picture = 'uploads/default_picture.png'
   context = {
     'form': form,
     'error': error,
