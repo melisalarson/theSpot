@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from datetime import date, timezone, datetime
+from django.utils import formats
 
 
 # Create your views here.
@@ -176,12 +177,15 @@ def signup (request):
 @login_required
 def profile (request):
   profile = Profile.objects.get(user=request.user)
+  profile.date_joined = datetime.now()
+  formatted_datetime = formats.date_format(profile.date_joined, "DATE_FORMAT")
   profile_form = ProfileForm(instance=profile)
-  posts = Post.objects.filter(profile=profile).order_by('date')
+  posts = Post.objects.filter(profile=profile).order_by('-date')
   context = {
     'profile': profile,
     'profile_form': profile_form,
     'posts': posts,
+    'formatted_datetime': formatted_datetime,
   }
   print(profile.upload_picture)
   return render(request, 'profile.html', context)
