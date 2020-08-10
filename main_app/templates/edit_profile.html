@@ -15,7 +15,8 @@
 
         <br><br>
 
-        <button class="btn2" type="submit" name="Save">Save</button>
+        <button class="btn2" type="submit" name="Update">Update</button>
+        
       </form>
 
     </div>
@@ -26,6 +27,8 @@
   $(document).ready(function () {
       $('select').not('.disabled').formSelect();
     });
+  const pictureCheckboxEl = document.getElementById("upload_picture-clear_id");
+  M.FormInputCheckBoxes.init(pictureCheckboxEl);
 </script>
 
 {% endblock %}

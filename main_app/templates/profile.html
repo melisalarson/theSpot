@@ -12,21 +12,19 @@
     <div class="card">
       <div class="card-content">
         
-        
-        
         <div class="row">
           <div class="post col s4">
             <img src="{{ profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;">
           </div>
-          
-          <div class="post col s7">
+
+          <div class="post col s6">
             <h6>Name: {{ profile.profile_name }} </h6>
             <h6>City: {{ profile.city }}</h6>
-            <h6>Joined: {{ profile.user.date_joined }}</h6>
+            <h6>Joined: {{ formatted_datetime }}</h6>
             <br>
           </div>
           <div class="col s2">
-            <a href="{% url 'edit_profile' %}"><button class=" btn-floating"><i class="material-icons">edit</i></button></a>
+            <a href="{% url 'edit_profile' %}"><button class="btn-floating"><i class="material-icons" id="add_btn">edit</i></button></a>
           </div>
         </div>
 
@@ -55,13 +53,63 @@
   <div class="post col s4">
     <div class="card">
       <div class="card-content">
-        <h5>Something else here...</h5>
+        <h5>Cities I've Contributed To</h5>
         <br><br><br><br><br><br><br><br>
       </div>
     </div>
   </div>
 
   </div>
+</div>
+
+<!-- ---------------------- THIS IS THE MOBILE SITE ----------------------- -->
+<div class="mobile">
+  <div class="row">
+
+    <div class="post col s12">
+      <div class="card">
+        <div class="card-content">
+
+          <div class="row">
+            <div class="post col s4">
+              <img src="{{ profile.upload_picture.url }}" class="circle responsive-img"
+                style="width: 100px; height: 100px;">
+              <a href="{% url 'edit_profile' %}"><button class="btn2">Edit Profile</button></a>
+            </div>
+
+            <div class="post col s8">
+              <h6>Name: {{ profile.profile_name }}</h6>
+              <h6>City: {{ profile.city }}</h6>
+              <h6>Joined: {{ profile.user.date_joined }}</h6>
+              <br>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="post col s12">
+      <div class="card">
+        <div class="card-content">
+          <h5>My Posts</h5>
+          {% for post in posts %}
+          <div class="row">
+            <div class="posts">
+              <a href="{% url 'post_index' post.id%}">
+                <h6>{{post.title}}</h6>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 
 <!-- using materialize to edit drop downs -->

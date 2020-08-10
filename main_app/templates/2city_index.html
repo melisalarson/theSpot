@@ -18,7 +18,8 @@
 </div>
 
 
-<h4 class="page-subheader">{{ city.name }}, {{ city.country }}</h4>
+<h4 id="city_index" class="page-subheader">{{ city.name }}, {{ city.country }}</h4>
+
 <hr />
 
 <div class="container">
@@ -50,6 +51,9 @@
                 <h6>{{post.title}}</h6>
               </a>
               <p>{{post.description}}</p>
+              <br>
+              <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span
+                  class="published_date">{{ post.date }}</span></p>
             </div>
           </div>
         </div>
@@ -58,12 +62,12 @@
     {% endfor %}
   </div>
 
-
+  
   <div class="right post col s1">
       <br>
       {% if user.is_authenticated %}
-      <a class=" btn-floating waves-effect waves-light red modal-trigger" href="#modal-newpost"
-        class="modal modal-open "><i class="material-icons">add</i></a>
+      <a class=" btn-floating modal-trigger" href="#modal-newpost"
+        class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
       {% endif %}
   </div>
 

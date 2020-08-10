@@ -8,7 +8,7 @@
 
     <h3>New Post</h3>
     {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
-    <form method="POST" action="{% url 'new_post' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'new_post' %}">
       {% csrf_token %}
       {{ post_form.as_p }}
       <input type="submit" class="btn2" value="Add Post">
@@ -24,15 +24,13 @@
     <a href="#"></a><button>Delete Post</button>
 
   </div>
-  <!-- <div class="modal-footer">
-    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
 </div>
 
 
-<div class="row">
+<div class="row first">
   <!-- ************************* ROW 1 ************************* -->
 
-  <div class="all_info col s4">
+  <div class="all_info col s4" id="info">
     <!-- ************************* COLUMN A ************************* -->
     <div class="card">
       <div class="card-content">
@@ -41,14 +39,11 @@
         <section class="cities-sections">
 
           {% for city in cities %}
-
-
-          
           <div class="card selected">
             <div class="card-content">
               <div class="row">
 
-                <div class="city col s3">
+                <div class="city col s3" id="city_high">
                   <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
                 </div>
 
@@ -75,7 +70,7 @@
     <!-- ************************* COLUMN B ************************* -->
 
 
-    <div class="featured_city row card">
+    <div class="featured_city row card" id="post_card">
 
       <div class="post col s3">
         <a href="{% url 'city_index2' city.id %}">
@@ -84,7 +79,7 @@
       </div>
 
       <div class="post col s9">
-        <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+        <img src="{{ city.upload_picture.url }}" style="width: 200px; height: 200px;">
       </div>
     </div>
 
@@ -92,8 +87,10 @@
       <div class="card-content">
         <div class="row">
           <p style="font-size: 30px" class="left">Posts</p>
-  
-          <a class="right btn-floating red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons">add</i></a>
+    
+          {% if user.is_authenticated %}
+          <a class="right btn-floating modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+          {% endif %}
         </div>
         <!-- -------------------- POSTS -------------------- -->
         <section class="posts-sections">
@@ -111,6 +108,114 @@
                       </div>
 
                       <div class="post col s9">
+                        <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
+                        <p>{{ post.description }}</p>
+                        <br>
+                        <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span
+                            class="published_date">{{ post.date }}</span></p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <h6>Nothing has been posted for {{ city.name }}, if you have been there, share something fun!</h6>
+            {% endif %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ----------------- MOBILE VERSION ------------ -->
+
+<div class="row second_showing">
+  <!-- ************************* ROW 1 ************************* -->
+
+
+
+  <div class="all_info"id="info">
+    <!-- ************************* COLUMN A ************************* -->
+    <div class="card">
+      <div class="card-content">
+        <h4>Cities</h4>
+        <!-- -------------------- CITIES -------------------- -->
+        <section class="cities-sections">
+
+          {% for city in cities %}
+
+
+          
+          <div class="card selected">
+            <div class="card-content">
+              <div class="row">
+
+                <div class="city">
+                  <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+                </div>
+
+                <div class="city">
+                  <a href="{% url 'city_index' city.id %}">
+                    <span class="card-title">{{ city.name }}, {{ city.country }}</span>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          
+
+
+          {% endfor %}
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="all_info">
+    <!-- ************************* COLUMN B ************************* -->
+
+
+    <div class="featured_city row card" id="post_card">
+
+      <div class="post">
+        <a href="{% url 'city_index2' city.id %}">
+          <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
+        </a>
+      </div>
+
+      <div class="post">
+        <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="row">
+          <p style="font-size: 30px" class="left">Posts</p>
+  
+          <a class="right btn-floating modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+        </div>
+        <!-- -------------------- POSTS -------------------- -->
+        <section class="posts-sections">
+          <!-- -------------------- FEATURED CITY -------------------- -->
+
+          <div class="featured_posts row">
+            {% if posts_length > 0 %}
+              {% for post in posts %}
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+
+                      <div class="post">
+                        <img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;">
+                      </div>
+
+                      <div class="post">
                         <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
                         <p>{{ post.description }}</p>
                         <br>

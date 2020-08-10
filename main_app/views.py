@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from datetime import date, timezone, datetime
+from django.utils import formats
 
 
 # Create your views here.
@@ -21,9 +22,9 @@ def cities (request):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.all().first()
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -42,9 +43,9 @@ def city_index (request, city_id):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -65,7 +66,7 @@ def city_index2 (request, city_id):
   post_form = PostForm()
   cities = City.objects.all()
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   # print(posts.__dict__)
   context = {
     'signup_form' : signup_form,
@@ -153,7 +154,6 @@ def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  picture = 'media/default_picture.png'
   context = {
     'form': form,
     'error': error,
@@ -164,7 +164,7 @@ def signup (request):
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
-      profile_user = Profile(user=user, profile_name=user.username, city=city, upload_picture=picture)
+      profile_user = Profile(user=user, profile_name=user.username, city=city)
       profile_user.save()
       return redirect('profile')
     else:
@@ -177,12 +177,15 @@ def signup (request):
 @login_required
 def profile (request):
   profile = Profile.objects.get(user=request.user)
+  profile.date_joined = datetime.now()
+  formatted_datetime = formats.date_format(profile.date_joined, "DATE_FORMAT")
   profile_form = ProfileForm(instance=profile)
-  posts = Post.objects.filter(profile=profile).order_by('date')
+  posts = Post.objects.filter(profile=profile).order_by('-date')
   context = {
     'profile': profile,
     'profile_form': profile_form,
     'posts': posts,
+    'formatted_datetime': formatted_datetime,
   }
   print(profile.upload_picture)
   return render(request, 'profile.html', context)
