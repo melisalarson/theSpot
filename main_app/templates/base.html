@@ -1,6 +1,7 @@
 {% comment %}
 {% endcomment %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,73 +16,76 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- media folder user photo uploads -->
+  <!-- what is missing from here??????????????????????????????? -->
   <!-- main css -->
   <link rel="stylesheet" href="{% static 'css/styles.css'%}">
 </head>
 
 <body>
+  <!-- ******************** HEADER === NAV BAR ******************** -->
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
 
-        
           <label><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></label>
-      
-        
+
           <ul class="unorderedlist active right">
+
             <li><a class="closer" href="{% url 'cities' %}">Cities</a></li>
-            {% if user.is_authenticated %}
+
+            {% if user.is_authenticated %} <!-- IF THE USER IS LOGGED IN SHOW PROFILE AND LOGOUT -->
               <li><a class="closer" href="{% url 'profile' %}">Profile</a></li>
               <li><button class="btn3 closer"><a  href="{% url 'logout' %}"> Log Out</a></button></li>
-            {% else %}
+
+            {% else %}  <!-- IF THE USER IS NOT LOGGED IN SHOW SIGNUP AND LOGIN -->
               <li><button class="btn3 closer modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</button></li>
               <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Login</button></li>
             {% endif %}
+
           </ul>
           
-          {% comment %}
-          <!-- <select>
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
-        </ul>
-          <option value="" selected="selected">Navigate</option>
-            <option class="right">
-              <option value="{% url 'cities' %}">Cities</option>
-              <option value="{% url 'posts' %}">Posts</option>
-              {% if user.is_authenticated %}
-                <option value="{% url 'profile' %}">Profile</option>
-                <option value="{% url 'logout' %}"><button class="btn3">Log Out</button></option>
-              {% else %}
-                <option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Sign Up</option>
-                <option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Login</option>
-              {% endif %}
-        </option>
-        </select> -->
-        {% endcomment %}
+{% comment %}
+<!-- <select>
+<ul>
+<li><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></li>
+</ul>
+<option value="" selected="selected">Navigate</option>
+<option class="right">
+<option value="{% url 'cities' %}">Cities</option>
+<option value="{% url 'posts' %}">Posts</option>
+{% if user.is_authenticated %}
+<option value="{% url 'profile' %}">Profile</option>
+<option value="{% url 'logout' %}"><button class="btn3">Log Out</button></option>
+{% else %}
+<option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Sign Up</option>
+<option value="#modal-login" class="btn3 modal-trigger" class="modal modal-open">Login</option>
+{% endif %}
+</option>
+</select> -->
+{% endcomment %}
+
       </div>
     </nav>
   </header>
 
   <!-- ******************** Modal Structure Below ********************-->
-  
+
     <!-- SIGNUP Modal -->
     <div id="modal-signup" class="modal-open modal">
       <div class="modal-content">
-
-        <h1>Sign Up</h1>
-
+    
+        <h3>Sign Up</h3>
+    
         {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
-
+    
         <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
           {% csrf_token %}
           {{ signup_form.as_p }}
           <input type="submit" class="btn2" value="signup">
         </form>
-
-      </div>
-      <!-- <div class="modal-footer">
-        <a href="{% url 'signup' %}" class="modal-close waves-effect waves-green btn-flat">Sign Up</a> -->
+    
       </div>
     </div>
 
@@ -89,88 +93,58 @@
     <div id="modal-login" class="modal-open modal">
       <div class="modal-content">
 
-      <h1>Log In</h1>
+        <h3>Log In</h3>
 
-      <!-- Add the login form -->
-      <form method="post" action="{% url 'login' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn2" value="login">
-        <input type="hidden" class="btn2" name="next" value="{{ next }}">
-      </form>
+        <form method="post" action="{% url 'login' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" class="btn2" value="login">
+          <input type="hidden" class="btn2" name="next" value="{{ next }}">
+        </form>
 
       </div>
-      <!-- <div class="modal-footer">
-        <a href="{% url 'login' %}" class="modal-close waves-effect waves-green btn-flat">Log In</a>
-      </div> -->
     </div>
 
-    {% comment %}
-    <!-- CITIES Modal -->
-    <!-- <div id="modal-cities" class="modal-open modal">
-      <div class="modal-content">
 
-      </div>
-      <div class="modal-footer">
-        <a href="{% url 'profile'}" class="modal-close waves-effect waves-green btn-flat">Cities</a>
-      </div>
-    </div> -->
-
-    <!-- PROFILE Modal -->
-    <!-- <div id="modal-profile" class="modal-open modal">
-      <div class="modal-content">
-
-      </div>
-      <div class="modal-footer">
-        <a href="{% url 'profile' %}" class="modal-close waves-effect waves-green btn-flat">Profile</a>
-      </div>
-    </div> -->
-    
-    <!-- LOGOUT Modal -->
-    <!-- <div id="modal-logout" class="modal-open modal">
-      <div class="modal-content">
-        
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="modal-close waves-effect waves-green btn-flat">Log Out</a>
-      </div>
-    </div> -->
-    {% endcomment %}
-
-
-  <main class="container">
+  <main class="main">
     {% block content %}
     {% endblock %}
   </main>
 
+
+
   <!-- jquery/metrialize cript for modals -->
   <script>
+    // get modals when document load
     $(document).ready(function () {
-      $('.modal').modal();
-    });
+        $('.modal').modal();
+      });
 
-  // Create the dropdown base
-  $("<select />").appendTo("nav");
+      $("nav select").change(function () {
+        window.location = $(this).find("option:selected").val();
+      });
 
-  // Create default option "Go to..."
-  $("<option />", {
-    "selected": "selected",
-    "value": "",
-    "text": "Go to..."
-  }).appendTo("nav select");
+                                  {% comment %}
+    // ------------------------- nav bat -------------------------
+    // Create the dropdown base
+    $("<select />").appendTo("nav");
 
-  // Populate dropdown with menu items
-  $("nav a").each(function () {
-    var el = $(this);
+    // Create default option "Go to..."
     $("<option />", {
-      "value": el.attr("href"),
-      "text": el.text()
+      "selected": "selected",
+      "value": "",
+      "text": "Go to..."
     }).appendTo("nav select");
-  });
 
-  $("nav select").change(function () {
-    window.location = $(this).find("option:selected").val();
-  });
+    // Populate dropdown with menu items
+    $("nav a").each(function () {
+      var el = $(this);
+      $("<option />", {
+        "value": el.attr("href"),
+        "text": el.text()
+      }).appendTo("nav select");
+    });
+                                  {% endcomment %}
 </script>
 
 </body>

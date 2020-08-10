@@ -29,10 +29,6 @@
 </div>
 
 
-<br><br><br><br><br><br><br><br><br><br>
-
-
-
 <div class="row">
   <!-- ************************* ROW 1 ************************* -->
 
@@ -47,7 +43,10 @@
         <section class="cities-sections">
 
           {% for city in cities %}
-          <div class="card">
+
+
+          
+          <div class="card selected">
             <div class="card-content">
               <div class="row">
 
@@ -61,10 +60,13 @@
                   </a>
                 </div>
 
-
               </div>
             </div>
           </div>
+
+          
+
+
           {% endfor %}
         </section>
       </div>
@@ -78,7 +80,7 @@
     <div class="featured_city row card">
 
       <div class="post col s3">
-        <a href="{{ city.id }}">
+        <a href="{% url 'city_index2' city.id %}">
           <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
         </a>
       </div>
@@ -90,37 +92,54 @@
 
     <div class="card">
       <div class="card-content">
+        <div class="row">
+          <p style="font-size: 30px" class="left">Posts:</p>
+  
+          <a class="right btn-floating red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons">add</i></a>
+        </div>
         <!-- -------------------- POSTS -------------------- -->
         <a class="right btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="large material-icons">add</i></a>
         <section class="posts-sections">
           <!-- -------------------- FEATURED CITY -------------------- -->
+<<<<<<< HEAD
           <h4>Posts:</h4>
 
           
+=======
+>>>>>>> 80760dcb1871d2855c96842cd7b963365d643867
 
           <div class="featured_posts row">
-            {% for post in posts %}
-            <div class="card">
-              <div class="card-content">
-                <div class="row">
+            {% if posts_length > 0 %}
+              {% for post in posts %}
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
 
-                  <div class="post col s3">
-                    <a href="{% url 'profile' %}"><img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;">
-                    </a>
+                      <div class="post col s3">
+                        <img src="{{ post.profile.upload_picture.url }}" class="circle responsive-img" style="width: 100px; height: 100px;">
+                      </div>
+
+                      <div class="post col s9">
+                        <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
+                        <p>{{ post.description }}</p>
+                        <br>
+                        <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span
+                            class="published_date">{{ post.date }}</span></p>
+                      </div>
+
+                    </div>
                   </div>
-
-                  <div class="post col s9">
-                    <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
-                    <p>{{ post.description }}</p>
-                    <br>
-                    <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span
-                        class="published_date">{{ post.date }}</span></p>
-                  </div>
-
                 </div>
+<<<<<<< HEAD
               </div>
             </div>
             {% endfor %}
+=======
+              {% endfor %}
+            {% else %}
+              <h6>Nothing has been posted for {{ city.name }}, if you have been there, share something fun!</h6>
+            {% endif %}
+>>>>>>> 80760dcb1871d2855c96842cd7b963365d643867
           </div>
         </section>
       </div>
