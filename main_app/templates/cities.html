@@ -24,8 +24,6 @@
     <a href="#"></a><button>Delete Post</button>
 
   </div>
-  <!-- <div class="modal-footer">
-    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
 </div>
 
 
@@ -46,18 +44,15 @@
       <div class="card-content">
         <div class="row" style="display: flex; justify-content: space-around;">
 
-            <div class="city col s3">
+            <div class="city col s3" id="city_high">
               <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
             </div>
-
-
 
             <div class="city col s9">
               <a href="{{ city.id }}"> 
                 <span class="card-title">{{ city.name }}, {{ city.country }}</span>
               </a>
             </div>
-        
 
         </div>
       </div>
@@ -88,9 +83,10 @@
   <div class="card-content">
     <div class="row">
       <p style="font-size: 30px" class="left">Posts</p>
-    
+      {% if user.is_authenticated %}
       <a class="right btn-floating modal-trigger" href="#modal-newpost"
         class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+      {% endif %}
     </div>
     <!-- POSTS  -->
     <section class="posts-sections">

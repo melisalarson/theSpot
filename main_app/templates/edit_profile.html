@@ -27,6 +27,8 @@
   $(document).ready(function () {
       $('select').not('.disabled').formSelect();
     });
+  const pictureCheckboxEl = document.getElementById("upload_picture-clear_id");
+  M.FormInputCheckBoxes.init(pictureCheckboxEl);
 </script>
 
 {% endblock %}

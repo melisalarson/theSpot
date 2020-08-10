@@ -24,15 +24,13 @@
     <a href="#"></a><button>Delete Post</button>
 
   </div>
-  <!-- <div class="modal-footer">
-    <a href="#" class="modal-close waves-effect waves-green btn-flat">Add New Post</a> -->
 </div>
 
 
 <div class="row first">
   <!-- ************************* ROW 1 ************************* -->
 
-  <div class="all_info col s4">
+  <div class="all_info col s4" id="info">
     <!-- ************************* COLUMN A ************************* -->
     <div class="card">
       <div class="card-content">
@@ -41,9 +39,6 @@
         <section class="cities-sections">
 
           {% for city in cities %}
-
-
-          
           <div class="card selected">
             <div class="card-content">
               <div class="row">
@@ -75,7 +70,7 @@
     <!-- ************************* COLUMN B ************************* -->
 
 
-    <div class="featured_city row card">
+    <div class="featured_city row card" id="post_card">
 
       <div class="post col s3">
         <a href="{% url 'city_index2' city.id %}">
@@ -92,8 +87,10 @@
       <div class="card-content">
         <div class="row">
           <p style="font-size: 30px" class="left">Posts</p>
-  
-          <a class="right btn-floating red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+    
+          {% if user.is_authenticated %}
+          <a class="right btn-floating modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+          {% endif %}
         </div>
         <!-- -------------------- POSTS -------------------- -->
         <section class="posts-sections">
@@ -140,7 +137,7 @@
 
 
 
-  <div class="all_info">
+  <div class="all_info"id="info">
     <!-- ************************* COLUMN A ************************* -->
     <div class="card">
       <div class="card-content">
@@ -183,7 +180,7 @@
     <!-- ************************* COLUMN B ************************* -->
 
 
-    <div class="featured_city row card">
+    <div class="featured_city row card" id="post_card">
 
       <div class="post">
         <a href="{% url 'city_index2' city.id %}">
@@ -201,7 +198,7 @@
         <div class="row">
           <p style="font-size: 30px" class="left">Posts</p>
   
-          <a class="right btn-floating red modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+          <a class="right btn-floating modal-trigger" href="#modal-newpost" class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
         </div>
         <!-- -------------------- POSTS -------------------- -->
         <section class="posts-sections">

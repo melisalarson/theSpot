@@ -22,9 +22,9 @@ def cities (request):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.all().first()
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -43,9 +43,9 @@ def city_index (request, city_id):
   signup_form = UserCreationForm()
   form = AuthenticationForm()
   post_form = PostForm()
-  cities = City.objects.all()
+  cities = City.objects.all().order_by('name')
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   posts_length = len(posts)
   context = {
     'signup_form' : signup_form,
@@ -66,7 +66,7 @@ def city_index2 (request, city_id):
   post_form = PostForm()
   cities = City.objects.all()
   city = City.objects.get(id=city_id)
-  posts = Post.objects.filter(city=city).order_by('-date')
+  posts = Post.objects.order_by('-date').filter(city=city)
   # print(posts.__dict__)
   context = {
     'signup_form' : signup_form,
