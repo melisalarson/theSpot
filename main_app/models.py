@@ -39,7 +39,7 @@ class Profile(models.Model):
     return self.profile_name
 
 class Post(models.Model):
-  title = models.CharField(max_length=100)
+  title = models.CharField(max_length=200)
   description = models.TextField(max_length=500)
   # picture = models.FileField(upload_to='uploads/')
   upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)

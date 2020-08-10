@@ -8,8 +8,8 @@
     <h3>Are you sure you want to delete {{post.title}}?</h3>
     <a href="{% url 'delete_post' post.id%}"><button class="btn2">Delete Post</button></a>
     <a href="{% url 'post_index' post.id%}"><button class="btn2">Never Mind</button></a>
-    <a href="{% url 'post_index' post.id%}"><button class="btn2"><i class="material-icons">arrow_back</i></button></a>
-    <a href="{% url 'delete_post' post.id%}"><button class="btn2"><i class="material-icons">delete</i></button></a>
+    <a href="{% url 'post_index' post.id%}"><button class="btn2"><i class="material-icons" id="add_btn">arrow_back</i></button></a>
+    <a href="{% url 'delete_post' post.id%}"><button class="btn2"><i class="material-icons" id="add_btn">delete</i></button></a>
 
   </div>
 </div>
@@ -22,14 +22,14 @@
       <div class="city col s1">
         {% if user.id == post.profile.id %} <br><br>
         <a href="{% url 'edit_post' post.id %}">
-          <button class="btn2" type="submit" name="edit"><i class="material-icons">edit</i></button>
+          <button class="btn2" type="submit" name="edit"><i class="material-icons" id="add_btn">edit</i></button>
         </a> <br><br>
         <a class="modal-trigger" href="#modal-deletepost" class="modal modal-open">
-          <button class="btn2" type="submit" name="delete"><i class="material-icons">delete</i></button>
+          <button class="btn2" type="submit" name="delete"><i class="material-icons" id="add_btn">delete</i></button>
         </a> <br><br>
         {% endif %}
         <a href="#">
-          <button class="btn2" type="submit" name="comment"><i class="material-icons">comment</i></button>
+          <button class="btn2" type="submit" name="comment"><i class="material-icons" id="add_btn">comment</i></button>
         </a>
       </div>
 

@@ -21,12 +21,6 @@ body {
   justify-content: flex-end;
 }
 
-
-
- nav select {
-  display: none;
-}
-
 .mobile {
   display: none;
 }
@@ -43,6 +37,10 @@ body {
     display: none;
 }
 
+#home_title {
+   text-align: center;
+}
+
 }
 
 .closer {
@@ -56,11 +54,8 @@ body {
 }
 
 .nav-wrapper {
-  /* background-color: rgba(115, 210, 248, 0.897); */
-  /* background-color: rgba(154,203,255,0.897); */
   background-color: rgb(154,203,255);
 } 
-
 
 
 .worldmap {
@@ -72,10 +67,18 @@ body {
   display: flex;
   flex-direction: center;
   justify-content: center;
-  
 }
 
+/* #info {
+  padding: 5px;
+} */
+
 /* buttons inside the modal = btn2 *********************************** */
+
+#add_btn {
+  background-color: rgba(115, 210, 248, 0.897);
+}
+
 .btn2 {
   background-color: rgba(115, 210, 248, 0.897);
   color: #fff;
@@ -88,9 +91,7 @@ body {
 .btn2:hover {
   background-color: rgba(115, 210, 248, 0.897);
   color: #fff;
-  padding: 2px 4px;
-  font-size: 18px;
-  border-radius: 3em;
+  transform: scale(1.1);
   box-shadow: -2px 2px rgba(141, 141, 141, 0.411);
 }
 

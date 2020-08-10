@@ -34,7 +34,7 @@
 
 
 
-  <div class="all_info col s4"> <!-- ************************* COLUMN A ************************* -->
+  <div class="all_info col s4" id="info"> <!-- ************************* COLUMN A ************************* -->
       <div class="card">
         <div class="card-content">
           <h4>Cities:</h4>
@@ -66,10 +66,10 @@
 </div>
 </div>
 
-  <div class="all_info col s8"> <!-- ************************* COLUMN B ************************* -->
+  <div class="all_info col s8 "> <!-- ************************* COLUMN B ************************* -->
 
 
-    <div class="featured_city row card">
+    <div class="featured_city row card" id="post_card">
 
       <div class="post col s3">
         <a href="{% url 'city_index2' city.id %}">
