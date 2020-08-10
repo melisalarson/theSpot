@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>New Post</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ post_form.as_p }}
+  <input type="submit" class="btn2" value="Add Post">
+</form>
+
+  <!-- jquery/metrialize cript for modals -->
+  <script>
+    const citySelectEl = document.getElementById("id_city");
+    M.FormSelect.init(citySelectEl);
+    const userSelectEl = document.getElementById("id_profile");
+    M.FormSelect.init(userSelectEl);
+  </script>
+{% endblock %}

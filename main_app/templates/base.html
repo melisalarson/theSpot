@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>theSpot</title>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <!-- materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- media folder user photo uploads -->
+  <!-- what is missing from here??????????????????????????????? -->
+  <!-- main css -->
+  <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+</head>
+
+<body>
+  <!-- ******************** HEADER === NAV BAR ******************** -->
+  <header class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+
+          <label><a href="/" class="left brand-logo">&nbsp;&nbsp;theSpot</a></label>
+
+          <ul class="unorderedlist active right">
+
+            <li><a class="closer" href="{% url 'cities' %}">Cities</a></li>
+
+            {% if user.is_authenticated %} <!-- IF THE USER IS LOGGED IN SHOW PROFILE AND LOGOUT -->
+              <li><a class="closer" href="{% url 'profile' %}">Profile</a></li>
+              <li><button class="btn3 closer"><a  href="{% url 'logout' %}"> Log Out</a></button></li>
+
+            {% else %}  <!-- IF THE USER IS NOT LOGGED IN SHOW SIGNUP AND LOGIN -->
+              <li><button class="btn3 closer modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</button></li>
+              <li><button class="btn3 closer modal-trigger" href="#modal-login" class="modal modal-open">Login</button></li>
+            {% endif %}
+
+          </ul>
+
+      </div>
+    </nav>
+  </header>
+
+  <!-- ******************** Modal Structure Below ********************-->
+
+    <!-- SIGNUP Modal -->
+    <div id="modal-signup" class="modal-open modal">
+      <div class="modal-content">
+    
+        <h3>Sign Up</h3>
+    
+        {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+    
+        <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ signup_form.as_p }}
+          <input type="submit" class="btn2" value="signup">
+        </form>
+    
+      </div>
+    </div>
+
+    <!-- LOGIN Modal -->
+    <div id="modal-login" class="modal-open modal">
+      <div class="modal-content">
+
+        <h3>Log In</h3>
+
+        <form method="post" action="{% url 'login' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" class="btn2" value="login">
+          <input type="hidden" class="btn2" name="next" value="{{ next }}">
+        </form>
+
+      </div>
+    </div>
+
+
+  <main class="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+
+
+  <!-- jquery/metrialize cript for modals -->
+  <script>
+    // get modals when document load
+    $(document).ready(function () {
+        $('.modal').modal();
+      });
+
+      $("nav select").change(function () {
+        window.location = $(this).find("option:selected").val();
+      });
+
+</script>
+
+</body>
+</html>

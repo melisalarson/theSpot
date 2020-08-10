@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="page-subheader">Edit Post Details</h4>
+<hr />
+
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+
+      <form method="POST" action="{% url 'edit_post' post.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        <br>
+        <input type="submit" class="btn2" value="Save">
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- jquery/metrialize cript for modals -->
+<script>
+  const citySelectEl = document.getElementById("id_city");
+  M.FormSelect.init(citySelectEl);
+  const userSelectEl = document.getElementById("id_profile");
+  M.FormSelect.init(userSelectEl);
+</script>
+{% endblock %}
