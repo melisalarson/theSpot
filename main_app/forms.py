@@ -23,4 +23,4 @@ class PostForm (forms.ModelForm):
   class Meta:
     model = Post
     # fields = '__all__'
-    fields = ['title', 'description', 'city', 'upload_picture']
+    fields = ['title', 'description', 'city']
