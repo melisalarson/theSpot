@@ -153,7 +153,6 @@ def signup (request):
   error = ''
   form = UserCreationForm()
   city = City.objects.all().first()
-  picture = 'uploads/default_picture.png'
   context = {
     'form': form,
     'error': error,
@@ -164,7 +163,7 @@ def signup (request):
     if form.is_valid():
       user = form.save()
       auth_login(request, user)
-      profile_user = Profile(user=user, profile_name=user.username, city=city, upload_picture=picture)
+      profile_user = Profile(user=user, profile_name=user.username, city=city)
       profile_user.save()
       return redirect('profile')
     else:
