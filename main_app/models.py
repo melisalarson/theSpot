@@ -34,7 +34,7 @@ class Profile(models.Model):
   # city = models.CharField(max_length=100)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   # profile_picture = models.FileField(upload_to='uploads/')
-  upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
+  upload_picture = models.ImageField(upload_to='uploads/', default='uploads/default_picture.png', storage=image_storage, null=True, blank=True)
   def __str__(self):
     return self.profile_name
 
