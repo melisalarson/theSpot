@@ -6,10 +6,9 @@
   <div class="modal-content">
 
     <h3>Are you sure you want to delete {{post.title}}?</h3>
-    <a href="{% url 'post_index' post.id%}"><button class="btn2">Back</button></a>
-    <a href="{% url 'delete_post' post.id%}"><button class="btn2">Delete</button></a>
-    <a href="{% url 'post_index' post.id%}"><button class="btn2"><i class="material-icons">arrow_back</i></button></a>
-    <a href="{% url 'delete_post' post.id%}"><button class="btn2"><i class="material-icons">delete</i></button></a>
+    <a href="{% url 'post_index' post.id%}"><button class="btn2"><i class="material-icons" id="add_btn">arrow_back</i></button></a>
+    <a href="{% url 'delete_post' post.id%}"><button class="btn2"><i class="material-icons" id="add_btn">delete</i></button></a>
+
   </div>
 </div>
 

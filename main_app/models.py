@@ -38,7 +38,7 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
-  title = models.CharField(max_length=100)
+  title = models.CharField(max_length=200)
   description = models.TextField(max_length=500)
   upload_picture = models.ImageField(upload_to='uploads/', storage=image_storage, null=True, blank=True)
   date = models.DateField(auto_now=True)

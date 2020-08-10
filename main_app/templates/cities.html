@@ -30,11 +30,11 @@
 
 
 
-<div class="row"> <!-- ************************* ROW 1 ************************* -->
+<div class="row first"> <!-- ************************* ROW 1 ************************* -->
 
 
 
-  <div class="all_info col s4"> <!-- ************************* COLUMN A ************************* -->
+  <div class="all_info col s4" id="info"> <!-- ************************* COLUMN A ************************* -->
       <div class="card">
         <div class="card-content">
           <h4>Cities</h4>
@@ -42,13 +42,15 @@
   <section class="cities-sections">
 
     {% for city in cities %}
-    <div class="card">
+    <div class="card city_card1">
       <div class="card-content">
         <div class="row" style="display: flex; justify-content: space-around;">
 
             <div class="city col s3">
               <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
             </div>
+
+
 
             <div class="city col s9">
               <a href="{{ city.id }}"> 
@@ -66,23 +68,19 @@
 </div>
 </div>
 
-  <div class="all_info col s8"> <!-- ************************* COLUMN B ************************* -->
+  <div class="all_info col s8 "> <!-- ************************* COLUMN B ************************* -->
 
 
-    <div class="card featured_city">
-      <div class="card-content">
-        <div class="row">
+    <div class="featured_city row card" id="post_card">
 
-          <div class="post col s3">
-            <a href="{% url 'city_index2' city.id %}">
-              <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
-            </a>
-          </div>
-        
-          <div class="post col s9">
-            <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
-          </div>
-        </div>
+      <div class="post col s3">
+        <a href="{% url 'city_index2' city.id %}">
+          <span class="card-title">{{ city.name }} <br> {{ city.country }}</span>
+        </a>
+      </div>
+      
+      <div class="post col s9">
+        <img src="{{ city.upload_picture.url }}" style="width: 90%; height: 90%;">
       </div>
     </div>
 
@@ -92,11 +90,11 @@
       <p style="font-size: 30px" class="left">Posts</p>
     
       <a class="right btn-floating modal-trigger" href="#modal-newpost"
-        class="modal modal-open "><i class="material-icons">add</i></a>
+        class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
     </div>
-    <!-- -------------------- POSTS -------------------- -->
-
-      <!-- -------------------- FEATURED CITY -------------------- -->      
+    <!-- POSTS  -->
+    <section class="posts-sections">
+      <!-- FEATURED CITY -->      
             
       <div class="featured_posts row">
         {% for post in posts %}
@@ -109,6 +107,103 @@
               </div>
 
               <div class="post col s9">
+                <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
+                <p>{{ post.description }}</p>
+                <br>
+                <p>Written by <span class="author"><a href="#">{{ post.profile.profile_name }}</a></span> on <span class="published_date">{{ post.date }}</span></p>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- --------------------- MOBILE USE ONLY ---------------------------- -->
+
+<div class="row second_showing"> <!-- ************************* ROW 1 ************************* -->
+
+
+
+  <div class="all_info" id="info"> <!-- ************************* COLUMN A ************************* -->
+      <div class="card">
+        <div class="card-content">
+          <h4>Cities</h4>
+<!-- -------------------- CITIES -------------------- -->
+  <section class="cities-sections">
+
+    {% for city in cities %}
+
+    <div class="card city_card2">
+      <div class="card-content">
+        <div class="city">
+          <a href="{{ city.id }}"> 
+            <span class="card-title">{{ city.name }}, {{ city.country }}</span>
+          </a>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-around;">
+
+            <div class="city">
+              <img src="{{ city.upload_picture.url }}" style="width: 80%; height: 100%;">
+            </div>
+
+
+
+            
+            
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+</div>
+</div>
+</div>
+
+  <div class="all_info"> <!-- ************************* COLUMN B ************************* -->
+
+
+    <div class="featured_city row card" id="post_card">
+
+      <div class="post">
+        <a href="{% url 'city_index2' city.id %}">
+          <span class="card-title">{{ city.name }}, <br> {{ city.country }}</span>
+        </a>
+      </div>
+      
+      <div class="post">
+        <img src="{{ city.upload_picture.url }}" style="width: 100%; height: 100%;">
+      </div>
+    </div>
+
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <p style="font-size: 30px" class="left">Posts</p>
+    
+      <a class="right btn-floating modal-trigger" href="#modal-newpost"
+        class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
+    </div>
+    <!-- POSTS  -->
+    <section class="posts-sections">
+      <!-- FEATURED CITY -->      
+            
+      <div class="featured_posts row">
+        {% for post in posts %}
+        <div class="card">
+          <div class="card-content">
+            <div class="row">
+
+              <div class="post">
+                <img class="circle responsive-img" src="{{ post.profile.upload_picture.url }}" style="width: 100px; height: 100px;">
+              </div>
+
+              <div class="post">
                 <a href="{% url 'post_index' post.id %}"><span class="card-title">{{ post.title }}</span></a>
                 <p>{{ post.description }}</p>
                 <br>

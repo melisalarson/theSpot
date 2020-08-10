@@ -35,7 +35,7 @@
 
             {% if user.is_authenticated %} <!-- IF THE USER IS LOGGED IN SHOW PROFILE AND LOGOUT -->
               <li><a class="closer" href="{% url 'profile' %}">Profile</a></li>
-              <li><button class="btn3 closer"><a  href="{% url 'logout' %}"> Log Out</a></button></li>
+              <li><a  href="{% url 'logout' %}"><button class="btn4 closer"> Log Out</button></a></li>
 
             {% else %}  <!-- IF THE USER IS NOT LOGGED IN SHOW SIGNUP AND LOGIN -->
               <li><button class="btn3 closer modal-trigger" href="#modal-signup" class="modal modal-open">Sign Up</button></li>
@@ -98,9 +98,9 @@
         $('.modal').modal();
       });
 
-      $("nav select").change(function () {
+      /*$("nav select").change(function () {
         window.location = $(this).find("option:selected").val();
-      });
+      });*/
 
 </script>
 
