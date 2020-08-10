@@ -14,16 +14,29 @@ body {
   
 }
 
+#city_index {
+  text-align: center;
+}
 
+#city_high {
+  width: 67px;
+  height: 72px;
+}
 
 .unorderedlist {
   display: flex;
   justify-content: flex-end;
 }
 
+.mobile {
+  display: none;
+}
 
+.second_showing {
+  display: none;
+}
 
- nav select {
+.worldmap2 {
   display: none;
 }
 
@@ -32,8 +45,68 @@ body {
   .nav select { 
     display: inline-block;
   }
-  /* .not-mobile { display: none};
-  .mobile { display: flex}; */
+  .mobile {
+  display: block;
+}
+  .not-mobile { 
+    display: none;
+}
+
+#home_title {
+   text-align: center;
+}
+
+.featured_city {
+  width: 100%;
+}
+
+
+.all_info {
+  width: 100%;
+}
+
+.first {
+  display: none;
+}
+
+.second_showing {
+  display: inline-block;
+}
+
+.city_card2 {
+  width: 100%;
+}
+
+.post {
+  text-align: center;
+  width: 100%;
+}
+
+.city {
+  text-align: center;
+}
+
+.worldmap {
+  display: none;
+}
+
+.carousel2 {
+  display: block;
+}
+
+#main_title {
+  position: relative;
+  top: -55px;
+}
+
+.worldmap2 {
+  display: inline-block;
+  position: relative;
+  top: 20px;
+  height: 80%;
+  width: 100%;
+}
+
 }
 
 .closer {
@@ -47,11 +120,8 @@ body {
 }
 
 .nav-wrapper {
-  /* background-color: rgba(115, 210, 248, 0.897); */
-  /* background-color: rgba(154,203,255,0.897); */
   background-color: rgb(154,203,255);
 } 
-
 
 
 .worldmap {
@@ -63,10 +133,19 @@ body {
   display: flex;
   flex-direction: center;
   justify-content: center;
-  
+  text-align: center;
 }
 
+/* #info {
+  padding: 5px;
+} */
+
 /* buttons inside the modal = btn2 *********************************** */
+
+#add_btn {
+  background-color: rgba(115, 210, 248, 0.897);
+}
+
 .btn2 {
   background-color: rgba(115, 210, 248, 0.897);
   color: #fff;
@@ -79,9 +158,7 @@ body {
 .btn2:hover {
   background-color: rgba(115, 210, 248, 0.897);
   color: #fff;
-  padding: 2px 4px;
-  font-size: 18px;
-  border-radius: 3em;
+  transform: scale(1.1);
   box-shadow: -2px 2px rgba(141, 141, 141, 0.411);
 }
 
@@ -96,7 +173,7 @@ body {
   color: #fff;
   border: 1px solid rgba(4, 134, 185, 0.897);
   margin: 0 5px;
-  width: 6.5em;
+  width: 6em;
   height: 3em;
   border-radius: 3em;
   border-style: none;
@@ -113,7 +190,9 @@ body {
 .btn4 {
   color: #fff;
   border: 1px solid rgba(4, 134, 185, 0.897);
-  margin: 0 5px;
+  position: relative;
+  font-size: 1em;
+  margin: 0 3px;
   width: 5rem;
   height: 3rem;
   border-radius: 3em;
@@ -127,28 +206,6 @@ body {
   box-shadow: -1px 1px rgba(141, 141, 141, 0.411);
   transform: scale(1.1);
 }
-/* .page-footer {
-  display: flex;
-  padding-top: 0;
-  height: 40px;
-  background-color: rgba(115, 210, 248, 0.897);
-  align-items: center;
-  justify-content: center;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-} */
-
-/* .right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-} */
 
 
 .modal {
@@ -190,4 +247,7 @@ footer {
   cursor: pointer;
 }
 
-
+.featured_city {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}

@@ -19,19 +19,19 @@
 
 
 
-<h3>{{ city.name }}, {{ city.country }}</h3>
+<h3 id="city_index">{{ city.name }}, {{ city.country }}</h3>
 <hr />
 
 <div class="row">
 
   <div class=" left post col s5">
-    <p style="font-size: 20px" class="left">Posts:</p>
+    <p style="font-size: 20px;" class="left">Posts</p>
   </div>
 
   <div class="right post col s5">
       {% if user.is_authenticated %}
       <a class="right btn-floating waves-effect waves-light red modal-trigger" href="#modal-newpost"
-        class="modal modal-open "><i class="material-icons">add</i></a>
+        class="modal modal-open "><i class="material-icons" id="add_btn">add</i></a>
       {% endif %}
   </div>
 
