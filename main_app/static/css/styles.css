@@ -15,13 +15,16 @@ body {
 }
 
 
-
 .unorderedlist {
   display: flex;
   justify-content: flex-end;
 }
 
 .mobile {
+  display: none;
+}
+
+.second_showing {
   display: none;
 }
 
@@ -39,6 +42,40 @@ body {
 
 #home_title {
    text-align: center;
+}
+
+.featured_city {
+  width: 100%;
+}
+
+
+.all_info {
+  text-align: center;
+  width: 100%;
+}
+
+.first {
+  display: none;
+}
+
+.second_showing {
+  display: inline-block;
+}
+
+.city_card2 {
+  width: 100%;
+}
+
+.post {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.city {
+  position: relative;
+  left: -10px;
+  text-align: center;
 }
 
 }
@@ -139,28 +176,6 @@ body {
   box-shadow: -1px 1px rgba(141, 141, 141, 0.411);
   transform: scale(1.1);
 }
-/* .page-footer {
-  display: flex;
-  padding-top: 0;
-  height: 40px;
-  background-color: rgba(115, 210, 248, 0.897);
-  align-items: center;
-  justify-content: center;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-} */
-
-/* .right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-} */
 
 
 .modal {
@@ -202,4 +217,7 @@ footer {
   cursor: pointer;
 }
 
-
+.featured_city {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
