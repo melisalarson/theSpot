@@ -28,12 +28,12 @@ body {
 }
 
 @media (max-width: 960px) {
-  .nav ul     { display: none; };
+  .nav ul     { display: none; }
   .nav select { 
     display: inline-block;
   }
-  /* .not-mobile { display: none};
-  .mobile { display: flex}; */
+  .mobile { display: flex; flex-direction: column;}
+  .not-mobile { display: none;}
 }
 
 .closer {
@@ -191,3 +191,6 @@ footer {
 }
 
 
+.page-subheader {
+  text-align: center;
+}
